@@ -18,7 +18,7 @@
 	"target-dir" : "Talan/Bundle/DynamicFormBundle",
 	"autoload" : {
 		"psr-0" : {
-			"Talan\\DynamicFormBundle" : ""
+			"Talan\\Bundle\\DynamicFormBundle" : ""
 		}
 	},
 	"extra" : {
