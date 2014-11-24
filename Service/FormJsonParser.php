@@ -30,7 +30,7 @@ class FormJsonParser
     public function getFieldsFromJson($json, Form $form)
     {
         $jsonArray = json_decode($json);
-        $fields = [];
+        $fields = array();
         foreach ($jsonArray as $jsonField) {
             $field = $form->getId() ? $this->em->getRepository('TalanDynamicFormBundle:Field')->find($jsonField->id) : null; // Modify or add a new field
             if (!$field) {
@@ -56,9 +56,9 @@ class FormJsonParser
 
     public function getJsonFromFields($fields)
     {
-        $jsonArray = [];
+        $jsonArray = array();
         foreach ($fields as $field) {
-            $jsonField = [];
+            $jsonField = array();
             $jsonField['id']            = $field->getId();
             $jsonField['label']         = $field->getLabel();
             $jsonField['description']   = $field->getDescription();
