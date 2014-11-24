@@ -13,12 +13,10 @@ use JMS\Serializer\Serializer;
 class FormJsonParser
 {
     protected $em;
-    protected $serializer;
 
-    function __construct(EntityManager $em, Serializer $serializer)
+    function __construct(EntityManager $em)
     {
         $this->em = $em;
-        $this->serializer = $serializer;
     }
 
     /**

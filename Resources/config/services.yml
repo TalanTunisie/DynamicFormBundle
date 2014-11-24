@@ -4,7 +4,7 @@ parameters:
 services:
     talan_dynamic_form.json_parser:
         class: "%talan_dynamic_form.json_parse.class%"
-        arguments: ["@doctrine.orm.entity_manager", "@jms_serializer"]
+        arguments: ["@doctrine.orm.entity_manager"]
     get_set_method_normalizer:
         class: Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer
         tags:
