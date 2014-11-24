@@ -2,7 +2,7 @@
 	"name" : "talan/dynamic-form",
 	"description" : "The Dynamic Form Bundle",
 	"license" : "MIT",
-	"type" : "library",
+	"type" : "symfony-bundle",
 	"authors" : [{
 			"name" : "Aymen Bouchekoua",
 			"email" : "aymen.bouchakoua@talan.tn",
@@ -19,5 +19,10 @@
 		"psr-0" : {
 			"Talan\\DynamicFormBundle" : ""
 		}
-	}
+	},
+    "extra" : {
+    "branch-alias" : {
+            "dev-master" : "dev-master"
+        }
+    }
 }
