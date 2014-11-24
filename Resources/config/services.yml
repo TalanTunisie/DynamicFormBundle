@@ -1,0 +1,11 @@
+parameters:
+    talan_dynamic_form.json_parse.class: Talan\Bundle\DynamicFormBundle\Service\FormJsonParser
+    
+services:
+    talan_dynamic_form.json_parser:
+        class: "%talan_dynamic_form.json_parse.class%"
+        arguments: ["@doctrine.orm.entity_manager", "@jms_serializer"]
+    get_set_method_normalizer:
+        class: Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer
+        tags:
+            - { name: serializer.normalizer }        

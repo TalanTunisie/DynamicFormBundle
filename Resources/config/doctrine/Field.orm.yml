@@ -1,0 +1,48 @@
+Talan\Bundle\DynamicFormBundle\Entity\Field:
+    type: entity
+    table: null
+    repositoryClass: Talan\Bundle\DynamicFormBundle\Entity\Repository\FieldRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        label:
+            type: string
+            length: 100
+        description:
+            type: string
+            length: 100
+        isRequired:
+            type: boolean
+        placeholder:
+            type: string
+            length: 100
+        index:
+            column: rank       
+            type: integer
+        validation:
+            type: string
+            length: 100
+        options:
+            type: array
+            nullable: true
+            
+    manyToOne:
+        fieldType:
+            targetEntity: FieldType
+        form:
+            targetEntity: Form
+            inversedBy: fields
+            cascade: ["persist"]
+            
+    oneToMany:
+        values:
+            targetEntity: Value
+            mappedBy: field
+            cascade: ["persist", "remove"]
+            orphanRemoval: true
+                                   
+    lifecycleCallbacks: {  }

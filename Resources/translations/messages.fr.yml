@@ -1,0 +1,11 @@
+dynamicForm:
+  btn:
+    save: Save
+    reset: Reset
+  bo:
+    formInfo: Form-info
+    name: Name
+    description: Description
+    formBuilder: Form-Builder
+    builder: Builder
+    formPreview: Form-preview

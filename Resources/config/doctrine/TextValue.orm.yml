@@ -1,0 +1,7 @@
+Talan\Bundle\DynamicFormBundle\Entity\TextValue:
+    type: entity
+    table: text_value
+    fields:
+        value:
+            type: text
+    lifecycleCallbacks: {  }

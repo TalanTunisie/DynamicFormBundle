@@ -1,0 +1,23 @@
+Talan\Bundle\DynamicFormBundle\Entity\Value:
+    type: entity
+    inheritanceType: JOINED
+    discriminatorColumn:
+        name: discr
+        type: integer
+    discriminatorMap:
+        1: StringValue
+        2: TextValue
+        3: ArrayValue
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    
+    manyToOne:
+        field:
+            targetEntity: Field
+            inversedBy: values
+                                
+    lifecycleCallbacks: {  }

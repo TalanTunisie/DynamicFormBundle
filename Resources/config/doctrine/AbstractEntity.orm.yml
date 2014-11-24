@@ -1,0 +1,10 @@
+Talan\Bundle\DynamicFormBundle\Entity\AbstractEntity:
+    type: mappedSuperclass
+    fields:
+        createdAt:
+            type: datetime
+        updatedAt:
+            type: datetime
+    lifecycleCallbacks: 
+        prePersist: [setCreatedAt]
+        preUpdate: [setUpdatedAt]

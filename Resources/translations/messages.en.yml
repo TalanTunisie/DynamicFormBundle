@@ -1,0 +1,21 @@
+dynamicForm:
+  btn:
+    save: Save
+    reset: Reset
+  bo:
+    formInfo: Form-info
+    id: id
+    name: Name
+    description: Description
+    formBuilder: Form-Builder
+    builder: Builder
+    formPreview: Form-preview  
+    message:
+      success: Form saved successfully
+      error:   Error occured while saving
+      
+  fo:
+    message:
+      success: Form submitted successfully
+      error:   Error occured while submitting the form
+      

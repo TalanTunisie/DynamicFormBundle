@@ -1,0 +1,17 @@
+Talan\Bundle\DynamicFormBundle\Entity\FieldType:
+    type: entity
+    table: field_type
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: 100
+        valueDisc:
+            type; integer
+            
+    lifecycleCallbacks: {  }

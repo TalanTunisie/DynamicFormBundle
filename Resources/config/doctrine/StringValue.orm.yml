@@ -1,0 +1,8 @@
+Talan\Bundle\DynamicFormBundle\Entity\StringValue:
+    type: entity
+    table: string_value
+    fields:
+        value:
+            type: string
+            length: 255
+    lifecycleCallbacks: {  }

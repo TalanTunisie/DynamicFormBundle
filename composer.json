@@ -1,0 +1,24 @@
+{
+	"name" : "talan/dynamic-form",
+	"description" : "The Dynamic Form Bundle",
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Aymen Bouchekoua",
+            "email": "aymen.bouchakoua@talan.tn",
+            "role": "Developer"
+        }
+    ],
+	"require" : {
+		"php" : ">=5.3.3",
+		"twig/twig": ">=1.8,<2.0-dev",
+        "doctrine/common": ">=2.1,<2.4.x-dev"
+	},
+    "target-dir": "Talan/DynamicFormBundle",
+    "autoload": {
+        "psr-0": {
+            "Talan\\DynamicFormBundle": ""
+        }
+    }
+}
