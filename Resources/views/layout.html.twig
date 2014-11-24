@@ -12,13 +12,7 @@
 
     <link rel="stylesheet" href="//kelp404.github.io/angular-form-builder/dist/angular-form-builder.css">
     <script type="text/javascript" src="//kelp404.github.io/angular-form-builder/dist/angular-form-builder.js"></script>
-
-
-    {% javascripts
-        "@TalanDynamicFormBundle/Resources/public/js/app.js"
-    %}
-        <script src="{{ asset_url }}"></script>
-    {% endjavascripts %}
+    <script src="{{ asset('bundles/talandynamicform/js/app.js') }}" type="text/javascript"></script>
 
     <title>Talan Dynamic Form Builder</title>
 </head>
