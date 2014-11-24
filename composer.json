@@ -15,15 +15,15 @@
 		"twig/twig" : ">=1.8,<2.0-dev",
 		"doctrine/common" : ">=2.1,<2.4.x-dev"
 	},
-	"target-dir" : "Talan/DynamicFormBundle",
+	"target-dir" : "Talan/Bundle/DynamicFormBundle",
 	"autoload" : {
 		"psr-0" : {
 			"Talan\\DynamicFormBundle" : ""
 		}
 	},
-    "extra" : {
-    "branch-alias" : {
-            "dev-master" : "dev-master"
-        }
-    }
+	"extra" : {
+		"branch-alias" : {
+			"dev-master" : "dev-master"
+		}
+	}
 }

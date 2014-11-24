@@ -324,7 +324,7 @@ class Field extends AbstractEntity
     /**
      * Get values
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getValues()
     {

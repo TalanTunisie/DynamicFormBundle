@@ -31,7 +31,7 @@ class StringValue extends Value
     /**
      * Get value
      *
-     * @return string 
+     * @return string
      */
     public function getValue()
     {

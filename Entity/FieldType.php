@@ -81,7 +81,7 @@ class FieldType
     /**
      * Get valueDisc
      *
-     * @return string 
+     * @return string
      */
     public function getValueDisc()
     {
