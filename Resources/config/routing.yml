@@ -1,20 +1,13 @@
-talan_dynamic_bo_form:
+talan_dynamic_form_bo:
     path:     /bo/{form}
     defaults: { _controller: "TalanDynamicFormBundle:BO:form", form: null }
-talan_dynamic_form_bo_template:
-    path:     /bo/template
-    defaults: { _controller: "TalanDynamicFormBundle:BO:template" }
-talan_dynamic_form_bo_popover_template:
-    path:     /bo/popoverTemplate
-    defaults: { _controller: "TalanDynamicFormBundle:BO:popoverTemplate" }
     
-talan_dynamic_fo_form:
+talan_dynamic_form_fo:
     path:     /fo/{form}   
     defaults: { _controller: "TalanDynamicFormBundle:FO:form"}
-talan_dynamic_fo_fields:
+talan_dynamic_form_fields:
     path:     /fields/{form}
     defaults: { _controller: "TalanDynamicFormBundle:FO:getFields"}
-talan_dynamic_fo_values:
+talan_dynamic_form_values:
     path:     /fields/{form}
     defaults: { _controller: "TalanDynamicFormBundle:FO:getValues"}
-    

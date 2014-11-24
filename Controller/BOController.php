@@ -4,7 +4,6 @@ namespace Talan\Bundle\DynamicFormBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Talan\Bundle\DynamicFormBundle\Entity\Form;
-use Talan\Bundle\DynamicFormBundle\Entity\Repository\FormRepository;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 class BOController extends Controller
@@ -27,7 +26,7 @@ class BOController extends Controller
             $em->persist($form);
             $em->flush();
             $this->get('session')->getFlashBag()->add('notice', $this->get('translator')->trans('dynamicForm.bo.message.success'));
-            return $this->redirect($this->generateUrl('talan_dynamic_bo_form', array(
+            return $this->redirect($this->generateUrl('talan_dynamic_form_bo', array(
                 'form' => $form->getId(),
             )));
         }

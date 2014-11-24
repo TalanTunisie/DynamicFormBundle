@@ -21,8 +21,6 @@ class FOController extends Controller
 
         if ($request->isMethod('POST')) {
             $fields = $request->request->get('fields');
-//             var_dump($fields);
-//             die;
             foreach ($fields as $fieldId => $fieldValue) {
                 $field = $em->getRepository('TalanDynamicFormBundle:Field')->find($fieldId);
                 $value = $em->getRepository('TalanDynamicFormBundle:Value')->findOneByField($fieldId);
@@ -34,7 +32,7 @@ class FOController extends Controller
             $em->flush();
 
             $this->get('session')->getFlashBag()->add('notice', $this->get('translator')->trans('dynamicForm.fo.message.success'));
-            return $this->redirect($this->generateUrl('talan_dynamic_fo_form', array(
+            return $this->redirect($this->generateUrl('talan_dynamic_form_fo', array(
                 'form' => $form->getId()
             )));
         }
