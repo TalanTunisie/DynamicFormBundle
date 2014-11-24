@@ -12,6 +12,7 @@ abstract class Value extends AbstractEntity
     const STRING_VALUE  = 1;
     const TEXT_VALUE    = 2;
     const ARRAY_VALUE   = 3;
+    const INTEGER_VALUE = 4;
 
     /**
      * @var integer

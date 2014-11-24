@@ -1,0 +1,7 @@
+Talan\Bundle\DynamicFormBundle\Entity\IntegerValue:
+    type: entity
+    table: integer_value
+    fields:
+        value:
+            type: integer
+    lifecycleCallbacks: {  }

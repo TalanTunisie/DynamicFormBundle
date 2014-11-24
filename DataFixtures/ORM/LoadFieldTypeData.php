@@ -21,7 +21,7 @@ class LoadFieldTypeData extends AbstractFixture implements OrderedFixtureInterfa
 				array('textArea', 2),
 				array('checkbox', 3),
 				array('radio', 3),
-				array('select', 1),
+				array('select', 4)
 		);
         foreach ($objects as $object) {
             $newObject = new FieldType();

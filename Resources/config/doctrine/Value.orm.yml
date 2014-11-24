@@ -8,6 +8,7 @@ Talan\Bundle\DynamicFormBundle\Entity\Value:
         1: StringValue
         2: TextValue
         3: ArrayValue
+        4: IntegerValue
     id:
         id:
             type: integer
