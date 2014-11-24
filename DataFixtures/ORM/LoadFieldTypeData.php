@@ -28,7 +28,6 @@ class LoadFieldTypeData extends AbstractFixture implements OrderedFixtureInterfa
             $newObject->setName($object[0]);
             $newObject->setValueDisc($object[1]);
             $manager->persist($newObject);
-//             $this->addReference('project-'.$newObject->getId(), $newObject);
         }
         $manager->flush();
     }

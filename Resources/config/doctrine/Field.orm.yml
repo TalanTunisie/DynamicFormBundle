@@ -1,7 +1,6 @@
 Talan\Bundle\DynamicFormBundle\Entity\Field:
     type: entity
     table: null
-    repositoryClass: Talan\Bundle\DynamicFormBundle\Entity\Repository\FieldRepository
     id:
         id:
             type: integer
