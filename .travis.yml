@@ -1,0 +1,23 @@
+language: php
+
+php:
+  - 5.3
+  - 5.4
+  - 5.5
+
+env:
+    - SYMFONY_VERSION=2.2.*
+    - SYMFONY_VERSION=2.3.*
+    - SYMFONY_VERSION=2.4.*
+    - SYMFONY_VERSION=2.5.*
+
+before_script:
+
+    # Set the GitHub OAuth token to make use of the 6000 per hour rate limit
+    - composer self-update
+    - composer require symfony/framework-bundle:${SYMFONY_VERSION}
+    - composer require symfony/templating:${SYMFONY_VERSION}
+    - composer install --dev
+
+notifications:
+  email: aymen.bouchakoua@talan.tn
