@@ -15,9 +15,6 @@
 		"twig/twig" : ">=1.8,<2.0-dev",
 		"doctrine/common" : ">=2.1,<2.4.x-dev"
 	},
-	"require-dev" : {
-		"symfony-cmf/testing" : "1.2.*"
-	},
 	"target-dir" : "Talan/Bundle/DynamicFormBundle",
 	"autoload" : {
 		"psr-0" : {
