@@ -52,7 +52,7 @@
         placeholder: 'placeholder',
         required: false,
         options: ['value one', 'value two'],
-        template: "<div class=\"form-group\">\n    <label for=\"{{formName+index}}\" class=\"col-md-3 control-label\" ng-class=\"{'fb-required':required}\">{{label}}</label>\n    <div class=\"col-md-9\">\n        <div class='radio' ng-repeat=\"item in options track by $index\">\n            <label><input  name=\"fields[{{id}}][{{$index}}]\" ng-model=\"$parent.inputText\" validator-group=\"{{formName}}\" value='{{item}}' type='radio'/>\n                {{item}}\n            </label>\n        </div>\n        <p class='help-block'>{{description}}</p>\n    </div>\n</div>",
+        template: "<div class=\"form-group\">\n    <label for=\"{{formName+index}}\" class=\"col-md-3 control-label\" ng-class=\"{'fb-required':required}\">{{label}}</label>\n    <div class=\"col-md-9\">\n        <div ng-init=\"$parent.inputText = $parent.inputText == options[0] ? 0 : $parent.inputText\" class='radio' ng-repeat=\"item in options track by $index\">\n            <label><input  name=\"fields[{{id}}][{{$index}}]\" ng-model=\"$parent.inputText\" validator-group=\"{{formName}}\" value=\"{{$index}}\" type='radio'/>\n                {{item}}\n            </label>\n        </div>\n        <p class='help-block'>{{description}}</p>\n    </div>\n</div>",
         popoverTemplate: "<form>\n    <div class=\"form-group\">\n        <label class='control-label'>Label</label>\n        <input type='text' ng-model=\"label\" validator=\"[required]\" class='form-control'/>\n    </div>\n    <div class=\"form-group\">\n        <label class='control-label'>Description</label>\n        <input type='text' ng-model=\"description\" class='form-control'/>\n    </div>\n    <div class=\"form-group\">\n        <label class='control-label'>Options</label>\n        <textarea class=\"form-control\" rows=\"3\" ng-model=\"optionsText\"/>\n    </div>\n\n    <hr/>\n    <div class='form-group'>\n        <input type='submit' ng-click=\"popover.save($event)\" class='btn btn-primary' value='Save'/>\n        <input type='button' ng-click=\"popover.cancel($event)\" class='btn btn-default' value='Cancel'/>\n        <input type='button' ng-click=\"popover.remove($event)\" class='btn btn-danger' value='Delete'/>\n    </div>\n</form>"
       });
       return $builderProvider.registerComponent('select', {
@@ -85,6 +85,7 @@
 					  jsonFields.sort(function(a, b) { // sort by index
 						    return a.index - b.index;
 					  });
+					  console.log(jsonFields);
 					  for(var field in jsonFields){
 						  $builder.addFormObject('default', jsonFields[field]);
 						  $scope.defaultValue[jsonFields[field].id] = jsonFields[field].value;

@@ -20,7 +20,7 @@ class LoadFieldTypeData extends AbstractFixture implements OrderedFixtureInterfa
 				array('textInput', 1),
 				array('textArea', 2),
 				array('checkbox', 3),
-				array('radio', 3),
+				array('radio', 4),
 				array('select', 4)
 		);
         foreach ($objects as $object) {

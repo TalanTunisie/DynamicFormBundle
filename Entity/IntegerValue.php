@@ -23,6 +23,9 @@ class IntegerValue extends Value
      */
     public function setValue($value)
     {
+        if (is_array($value)) {
+            $value =  intval(array_keys($value)[0]);
+        }
         $this->value = $value;
 
         return $this;
