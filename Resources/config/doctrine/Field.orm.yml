@@ -1,6 +1,6 @@
 Talan\Bundle\DynamicFormBundle\Entity\Field:
     type: entity
-    table: null
+    table: talan_field
     id:
         id:
             type: integer
@@ -32,6 +32,7 @@ Talan\Bundle\DynamicFormBundle\Entity\Field:
     manyToOne:
         fieldType:
             targetEntity: FieldType
+            nullable: false
         form:
             targetEntity: Form
             inversedBy: fields

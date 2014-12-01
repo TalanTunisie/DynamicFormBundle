@@ -6,8 +6,12 @@
     <script type="text/javascript" src="//code.angularjs.org/1.2.20/angular.min.js"></script>
     <script type="text/javascript" src="//kelp404.github.io/angular-validator/dist/angular-validator.min.js"></script>
     <script type="text/javascript" src="//kelp404.github.io/angular-validator/dist/angular-validator-rules.min.js"></script>
+    <script type="text/javascript" src="http://l-lin.github.io/angular-datatables/vendor/datatables/media/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" src="http://l-lin.github.io/angular-datatables/archives/v0.2.1/dist/angular-datatables.min.js"></script>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://l-lin.github.io/angular-datatables/vendor/datatables/media/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="http://l-lin.github.io/angular-datatables/archives/v0.2.1/dist/datatables.bootstrap.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
 
     <link rel="stylesheet" href="//kelp404.github.io/angular-form-builder/dist/angular-form-builder.css">
@@ -17,6 +21,7 @@
     <title>Talan Dynamic Form Builder</title>
 </head>
 <body class="container" ng-controller="FormController">
+<input type="hidden" ng-model="formId" ng-init="formId = {{form.id}}">
 {% for flashMessage in app.session.flashbag.get('error') %}
     <div class="flash-notice">
         <div class="alert alert-danger">{{ flashMessage }}</div>

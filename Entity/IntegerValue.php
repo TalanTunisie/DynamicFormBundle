@@ -23,7 +23,7 @@ class IntegerValue extends Value
      */
     public function setValue($value)
     {
-        if (is_array($value)) {
+        if (is_array($value)) { // To solve the radio button issue
             $value =  intval(array_keys($value)[0]);
         }
         $this->value = $value;

@@ -25,6 +25,11 @@ class Form extends AbstractEntity
     private $description;
 
     /**
+     * @var string
+     */
+    private $valueOwnerAlias;
+
+    /**
      * @var \Doctrine\Common\Collections\Collection
      */
     private $fields;
@@ -94,27 +99,37 @@ class Form extends AbstractEntity
     }
 
     /**
-     * set fields
+     * Set valueOwnerAlias
      *
-     * @param array of Field $fields
+     * @param string $valueOwnerAlias
      * @return Form
      */
-    public function setFields($fields)
+    public function setValueOwnerAlias($valueOwnerAlias)
     {
-        $this->fields = $fields;
+        $this->valueOwnerAlias = $valueOwnerAlias;
 
         return $this;
     }
 
     /**
+     * Get valueOwnerAlias
+     *
+     * @return string
+     */
+    public function getValueOwnerAlias()
+    {
+        return $this->valueOwnerAlias;
+    }
+
+    /**
      * Add fields
      *
-     * @param Field $fields
+     * @param \Talan\Bundle\DynamicFormBundle\Entity\Field $fields
      * @return Form
      */
-    public function addField(Field $field)
+    public function addField(\Talan\Bundle\DynamicFormBundle\Entity\Field $fields)
     {
-        $this->fields[] = $field;
+        $this->fields[] = $fields;
 
         return $this;
     }
@@ -122,11 +137,11 @@ class Form extends AbstractEntity
     /**
      * Remove fields
      *
-     * @param Field $fields
+     * @param \Talan\Bundle\DynamicFormBundle\Entity\Field $fields
      */
-    public function removeField(Field $field)
+    public function removeField(\Talan\Bundle\DynamicFormBundle\Entity\Field $fields)
     {
-        $this->fields->removeElement($field);
+        $this->fields->removeElement($fields);
     }
 
     /**
@@ -137,5 +152,18 @@ class Form extends AbstractEntity
     public function getFields()
     {
         return $this->fields;
+    }
+
+    /**
+     * Set Fields
+     *
+     * @param array $fields
+     * @return \Talan\Bundle\DynamicFormBundle\Entity\Form
+     */
+    public function setFields(array $fields)
+    {
+        $this->fields = $fields;
+
+        return $this;
     }
 }

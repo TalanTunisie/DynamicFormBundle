@@ -25,6 +25,11 @@ abstract class Value extends AbstractEntity
     private $field;
 
     /**
+     * @var \Talan\Bundle\DynamicFormBundle\Model\ValueOwnerSubjectInterface
+     */
+    private $valueOwner;
+
+    /**
      * Get id
      *
      * @return integer
@@ -32,6 +37,26 @@ abstract class Value extends AbstractEntity
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Get A value instance depending on the type
+     *
+     * @param integer $valueType
+     * @return \Talan\Bundle\DynamicFormBundle\Entity\IntegerValue|\Talan\Bundle\DynamicFormBundle\Entity\StringValue
+     */
+    public static function getInstanceByType($valueType)
+    {
+        switch ($valueType) {
+            case self::ARRAY_VALUE:
+                return new ArrayValue();
+            case self::INTEGER_VALUE:
+                return new IntegerValue();
+            case self::TEXT_VALUE:
+                return new TextValue();
+            default:
+                return new StringValue();
+        }
     }
 
     /**
@@ -73,18 +98,25 @@ abstract class Value extends AbstractEntity
     public abstract function getValue();
 
     /**
-     * Get A value instance depending on the type
+     * Set valueOwner
      *
-     * @param integer $valueType
-     * @return \Talan\Bundle\DynamicFormBundle\Entity\IntegerValue|\Talan\Bundle\DynamicFormBundle\Entity\StringValue
+     * @param string $valueOwner
+     * @return Value
      */
-    public static function getInstanceByType($valueType)
+    public function setValueOwner($valueOwner)
     {
-        switch ($valueType) {
-            case self::ARRAY_VALUE:
-                return new ArrayValue();
-            default:
-                return new StringValue();
-        }
+        $this->valueOwner = $valueOwner;
+
+        return $this;
+    }
+
+    /**
+     * Get valueOwner
+     *
+     * @return string 
+     */
+    public function getValueOwner()
+    {
+        return $this->valueOwner;
     }
 }

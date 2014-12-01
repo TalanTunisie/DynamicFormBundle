@@ -3,7 +3,6 @@
     <div class="row">
         <h2>{{form.name}}</h2>
         <hr/>
-        <input type="hidden" ng-model="formId" ng-init="formId = {{form.id}}">
         <form class="form-horizontal" action="{{path('talan_dynamic_form_fo', {'form': form.id})}}" method="POST">
             <div ng-model="input" fb-form="default" fb-default="defaultValue"></div>
             <div class="form-group">
@@ -13,9 +12,5 @@
                 </div>
             </div>
         </form>
-    </div>
-
-    <div class="row">
-        <div class="col-md-12 footer"></div>
     </div>
 {% endblock body %}

@@ -1,13 +1,16 @@
 talan_dynamic_form_bo:
     path:     /bo/{form}
     defaults: { _controller: "TalanDynamicFormBundle:BO:form", form: null }
+talan_dynamic_form_bo_remove:    
+    path:     /bo/remove/{form}
+    defaults: { _controller: "TalanDynamicFormBundle:BO:remove" }
     
 talan_dynamic_form_fo:
     path:     /fo/{form}   
-    defaults: { _controller: "TalanDynamicFormBundle:FO:form"}
+    defaults: { _controller: "TalanDynamicFormBundle:FO:form"}    
 talan_dynamic_form_fields:
     path:     /fields/{form}
     defaults: { _controller: "TalanDynamicFormBundle:FO:getFields"}
 talan_dynamic_form_values:
     path:     /fields/{form}
-    defaults: { _controller: "TalanDynamicFormBundle:FO:getValues"}
+    defaults: { _controller: "TalanDynamicFormBundle:FO:getValues"}    

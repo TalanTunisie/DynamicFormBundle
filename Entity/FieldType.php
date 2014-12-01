@@ -10,8 +10,6 @@ use Doctrine\ORM\Mapping as ORM;
 class FieldType
 {
 
-    const STRING = 1;
-
     /**
      * @var integer
      */

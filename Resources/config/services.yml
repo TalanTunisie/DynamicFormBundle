@@ -1,7 +1,10 @@
 parameters:
     talan_dynamic_form.json_parse.class: Talan\Bundle\DynamicFormBundle\Service\FormJsonParser
+    talan_dynamic_form.value_owner_provider_chain.class: Talan\Bundle\DynamicFormBundle\Service\ValueOwnerProviderChain
     
 services:
     talan_dynamic_form.json_parser:
         class: "%talan_dynamic_form.json_parse.class%"
         arguments: ["@doctrine.orm.entity_manager"]
+    talan_dynamic_form.value_owner_provider_chain:
+        class: "%talan_dynamic_form.value_owner_provider_chain.class%"

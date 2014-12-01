@@ -15,18 +15,29 @@ class FOController extends Controller
 {
     public function formAction(Form $form)
     {
+        if (!$form) throw new NotFoundHttpException();
         $request = $this->getRequest();
         $em = $this->getDoctrine()->getManager();
-        if (!$form) throw new NotFoundHttpException();
 
         if ($request->isMethod('POST')) {
             $fields = $request->request->get('fields');
+            if ($form->getValueOwnerAlias() != null) {
+                $valueOwner = $this->get('talan_dynamic_form.value_owner_provider_chain')
+                                    ->getValueOwnerProvider($form->getValueOwnerAlias())
+                                    ->getValueOwner();
+            }
             foreach ($fields as $fieldId => $fieldValue) {
                 $field = $em->getRepository('TalanDynamicFormBundle:Field')->find($fieldId);
-                $value = $em->getRepository('TalanDynamicFormBundle:Value')->findOneByField($fieldId);
+                $valueSearchCriteria = array("field" => $fieldId);
+                if(isset($valueOwner))
+                    $valueSearchCriteria["valueOwner"] = $valueOwner;
+                $value = $em->getRepository('TalanDynamicFormBundle:Value')->findOneBy($valueSearchCriteria);
                 if (!$value) $value = Value::getInstanceByType($field->getFieldType()->getValueDisc());
                 $value->setValue($fieldValue);
                 $value->setField($field);
+                if(isset($valueOwner))
+                    $value->setValueOwner($valueOwner);
+
                 $em->persist($value);
             }
             $em->flush();
@@ -44,16 +55,14 @@ class FOController extends Controller
 
     public function getFieldsAction(Form $form)
     {
+        if ($form->getValueOwnerAlias() != null) {
+            $valueOwner = $this->get('talan_dynamic_form.value_owner_provider_chain')
+            ->getValueOwnerProvider($form->getValueOwnerAlias())
+            ->getValueOwner($form);
+        }
+
         $jsonFields = $this->get('talan_dynamic_form.json_parser')
-            ->getJsonFromFields($form->getFields());
-
+            ->getJsonFromFields($form->getFields(), $valueOwner);
         return new JsonResponse($jsonFields);
-    }
-
-    public function getValuesAction(Form $form)
-    {
-        $jsonValues = $this->get('talan_dynamic_form.json_parser')
-            ->getFormValues($form);
-        return new JsonResponse($jsonValues);
     }
 }

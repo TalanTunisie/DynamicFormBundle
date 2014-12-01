@@ -1,6 +1,6 @@
 Talan\Bundle\DynamicFormBundle\Entity\FieldType:
     type: entity
-    table: field_type
+    table: talan_field_type
     id:
         id:
             type: integer

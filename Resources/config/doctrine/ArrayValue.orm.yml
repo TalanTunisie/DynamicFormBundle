@@ -1,6 +1,6 @@
 Talan\Bundle\DynamicFormBundle\Entity\ArrayValue:
     type: entity
-    table: array_value
+    table: talan_array_value
     fields:
         value:
             type: array

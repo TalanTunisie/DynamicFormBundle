@@ -2,16 +2,23 @@ dynamicForm:
   btn:
     save: Save
     reset: Reset
+    remove: Delete
   bo:
+    id: ID
     formInfo: Form-info
+    formList: Form-list
+    newForm: Create new Form
     id: id
     name: Name
+    actions: Actions
     description: Description
+    valueOwnerAlias: Value Owner Provider Alias
     formBuilder: Form-Builder
     builder: Builder
     formPreview: Form-preview  
     message:
       success: Form saved successfully
+      remove: Form with id = %id% is removed successfully
       error:   Error occured while saving
       
   fo:

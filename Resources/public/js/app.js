@@ -62,7 +62,7 @@
         placeholder: 'placeholder',
         required: false,
         options: ['value one', 'value two'],
-        template: "<div class=\"form-group\">\n    <label for=\"{{formName+index}}\" class=\"col-md-3 control-label\">{{label}}</label>\n    <div class=\"col-md-9\">\n        <select name=\"fields[{{id}}]\" ng-options=\"k as v for (k, v) in options\" id=\"{{formName+index}}\" class=\"form-control\"\n            ng-model=\"inputText\"/>\n        <p class='help-block'>{{description}}</p>\n    </div>\n</div>",
+        template: "<div class=\"form-group\">\n    <label for=\"{{formName+index}}\" class=\"col-md-3 control-label\">{{label}}</label>\n    <div class=\"col-md-9\">\n        <select name=\"fields[{{id}}]\" id=\"{{formName+index}}\" class=\"form-control\"\n ng-model=\"inputText\">\n <option ng-repeat=\"item in options track by $index\" ng-selected=\"inputText == $index\" ng-value=\"$index\">{{item}}</option>  </select>        <p class='help-block'>{{description}}</p>\n    </div>\n</div>",
         popoverTemplate: "<form>\n    <div class=\"form-group\">\n        <label class='control-label'>Label</label>\n        <input type='text' ng-model=\"label\" validator=\"[required]\" class='form-control'/>\n    </div>\n    <div class=\"form-group\">\n        <label class='control-label'>Description</label>\n        <input type='text' ng-model=\"description\" class='form-control'/>\n    </div>\n    <div class=\"form-group\">\n        <label class='control-label'>Options</label>\n        <textarea class=\"form-control\" rows=\"3\" ng-model=\"optionsText\"/>\n    </div>\n\n    <hr/>\n    <div class='form-group'>\n        <input type='submit' ng-click=\"popover.save($event)\" class='btn btn-primary' value='Save'/>\n        <input type='button' ng-click=\"popover.cancel($event)\" class='btn btn-default' value='Cancel'/>\n        <input type='button' ng-click=\"popover.remove($event)\" class='btn btn-danger' value='Delete'/>\n    </div>\n</form>"
       });
     }
@@ -71,12 +71,13 @@
 }).call(this);
 
 (function() {
-  var app = angular.module('app', ['builder', 'builder.components', 'validator.rules']).run();
+  var app = angular.module('app', ['builder', 'builder.components', 'validator.rules', 'datatables']).run();
   app.controller('FormController', [
      '$scope', '$builder', '$validator', '$http', '$location', function($scope, $builder, $validator, $http, $location) {
       $scope.form = $builder.forms['default'];
       $scope.input = [];
       $scope.defaultValue = {};
+      $scope.isShowScope = false;
       $scope.$watch("formId", function(){
 	      if($scope.formId) {
 		      $scope.fieldsPath = $location.$$absUrl + '/../../fields/';
@@ -85,7 +86,6 @@
 					  jsonFields.sort(function(a, b) { // sort by index
 						    return a.index - b.index;
 					  });
-					  console.log(jsonFields);
 					  for(var field in jsonFields){
 						  $builder.addFormObject('default', jsonFields[field]);
 						  $scope.defaultValue[jsonFields[field].id] = jsonFields[field].value;
@@ -106,5 +106,5 @@
   ]).config(function($locationProvider) {
       $locationProvider.html5Mode(true);
   });;
-
+  
 }).call(this);

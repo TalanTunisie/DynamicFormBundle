@@ -1,6 +1,6 @@
 Talan\Bundle\DynamicFormBundle\Entity\StringValue:
     type: entity
-    table: string_value
+    table: talan_string_value
     fields:
         value:
             type: string

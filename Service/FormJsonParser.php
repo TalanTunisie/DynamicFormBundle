@@ -8,7 +8,6 @@ use Doctrine\ORM\EntityManager;
 use Symfony\Component\Serializer\Encoder\XmlEncoder;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
-use JMS\Serializer\Serializer;
 
 class FormJsonParser
 {
@@ -32,7 +31,8 @@ class FormJsonParser
         $jsonArray = json_decode($json);
         $fields = array();
         foreach ($jsonArray as $jsonField) {
-            $field = $form->getId() ? $this->em->getRepository('TalanDynamicFormBundle:Field')->find($jsonField->id) : null; // Modify or add a new field
+            $field = $form->getId() && isset($jsonField->id) ?
+                $this->em->getRepository('TalanDynamicFormBundle:Field')->find($jsonField->id) : null; // Modify or add a new field
             if (!$field) {
                 $field = new Field();
             }
@@ -54,7 +54,7 @@ class FormJsonParser
         return $fields;
     }
 
-    public function getJsonFromFields($fields)
+    public function getJsonFromFields($fields, $valueOwner)
     {
         $jsonArray = array();
         foreach ($fields as $field) {
@@ -68,17 +68,27 @@ class FormJsonParser
             $jsonField['options']       = $field->getOptions();
             $jsonField['index']         = $field->getIndex();
             $jsonField['validation']    = $field->getValidation();
-            if (count($field->getValues()) > 0) {
-                $value = $field->getValues()[0]->getValue();
-                if (is_array($value)) {
-                    $value = array_map(function($a){return $a == 1;}, $value);
-                }
-                $jsonField['value']     = $value;
-            }
+            $jsonField['value']         = $this->getFieldValueByOwner($field, $valueOwner);
 
             $jsonArray[] = $jsonField;
         }
         return $jsonArray;
+    }
+
+    private function getFieldValueByOwner($field, $valueOwner)
+    {
+        $value = $this->em->getRepository('TalanDynamicFormBundle:Value')->findOneBy(array(
+            "field" => $field->getId(),
+            "valueOwner" => $valueOwner
+        ));
+        if (!$value) return null;
+        $value = $value->getValue();
+
+        if (is_array($value)) {
+            $value = array_map(function($a){return $a == 1;}, $value);
+        }
+
+        return $value;
     }
 
     public function removeFields(Form $form, $newFields)

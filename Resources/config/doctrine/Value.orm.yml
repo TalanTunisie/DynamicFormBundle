@@ -1,21 +1,29 @@
 Talan\Bundle\DynamicFormBundle\Entity\Value:
     type: entity
+    table: talan_value
     inheritanceType: JOINED
+    indexes:
+        search_index:
+            columns: [ value_owner, field_id ]
+    uniqueConstraints:
+        search_idx:
+            columns: [ value_owner, field_id ]
     discriminatorColumn:
         name: discr
-        type: integer
-    discriminatorMap:
-        1: StringValue
-        2: TextValue
-        3: ArrayValue
-        4: IntegerValue
+        type: string
     id:
         id:
             type: integer
             id: true
             generator:
                 strategy: AUTO
-    
+    fields:    
+        valueOwner:
+            column: value_owner
+            type: string
+            length: 100
+            nullable: true
+                 
     manyToOne:
         field:
             targetEntity: Field

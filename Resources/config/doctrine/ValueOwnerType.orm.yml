@@ -1,28 +1,29 @@
-Talan\Bundle\DynamicFormBundle\Entity\Form:
+Talan\Bundle\DynamicFormBundle\Entity\ValueOwnerType:
     type: entity
-    table: talan_form
+    table: talan_value_owner_type
     id:
         id:
             type: integer
             id: true
             generator:
                 strategy: AUTO
+        
     fields:
-        name:
+        label:
+            type: string
+            length: 100
+        tagName:
             type: string
             length: 100
         description:
             type: text
-        valueOwnerAlias:
-            type: string
-            length: 100
             nullable: true
             
     oneToMany:
-        fields:
-            targetEntity: Field
-            mappedBy: form
+        forms:
+            targetEntity: Form
+            mappedBy: valueOwnerType
             cascade: ["persist", "remove"]
             orphanRemoval: true
-            
+                
     lifecycleCallbacks: {  }
