@@ -20,19 +20,20 @@
 
     <title>Talan Dynamic Form Builder</title>
 </head>
-<body class="container" ng-controller="FormController">
-<input type="hidden" ng-model="formId" ng-init="formId = {{form.id}}">
-{% for flashMessage in app.session.flashbag.get('error') %}
-    <div class="flash-notice">
-        <div class="alert alert-danger">{{ flashMessage }}</div>
+<body class="container">
+    <div ng-controller="FormController">
+    {% for flashMessage in app.session.flashbag.get('error') %}
+        <div class="flash-notice">
+            <div class="alert alert-danger">{{ flashMessage }}</div>
+        </div>
+    {% endfor %}
+    {% for flashMessage in app.session.flashbag.get('notice') %}
+        <div class="flash-notice">
+            <div class="alert alert-success">{{ flashMessage }}</div>
+        </div>
+    {% endfor %}
+    {% block body %}
+    {% endblock body %}
     </div>
-{% endfor %}
-{% for flashMessage in app.session.flashbag.get('notice') %}
-    <div class="flash-notice">
-        <div class="alert alert-success">{{ flashMessage }}</div>
-    </div>
-{% endfor %}
-{% block body %}
-{% endblock body %}
 </body>
 </html>

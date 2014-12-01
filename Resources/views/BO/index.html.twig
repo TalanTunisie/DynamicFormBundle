@@ -1,6 +1,7 @@
 {% extends 'TalanDynamicFormBundle::layout.html.twig' %}
 {% block body %}
     {% render(controller('TalanDynamicFormBundle:BO:view')) %}
+    {% if form.id %}<input type="hidden" ng-model="formId" ng-init="formId = {{form.id}}">{% endif %}
     {{ form_start(formView, {'class': 'form-horizontal'}) }}
         <div class="row">
             <h1>{{ 'dynamicForm.bo.formInfo' | trans }}</h1>
