@@ -25,7 +25,7 @@ abstract class Value extends AbstractEntity
     private $field;
 
     /**
-     * @var \Talan\Bundle\DynamicFormBundle\Model\ValueOwnerSubjectInterface
+     * @var String
      */
     private $valueOwner;
 
@@ -41,9 +41,8 @@ abstract class Value extends AbstractEntity
 
     /**
      * Get A value instance depending on the type
-     *
-     * @param integer $valueType
-     * @return \Talan\Bundle\DynamicFormBundle\Entity\IntegerValue|\Talan\Bundle\DynamicFormBundle\Entity\StringValue
+     * @param Integer $valueType
+     * @return \Talan\Bundle\DynamicFormBundle\Entity\ArrayValue|\Talan\Bundle\DynamicFormBundle\Entity\IntegerValue|\Talan\Bundle\DynamicFormBundle\Entity\TextValue|\Talan\Bundle\DynamicFormBundle\Entity\StringValue
      */
     public static function getInstanceByType($valueType)
     {
@@ -113,7 +112,7 @@ abstract class Value extends AbstractEntity
     /**
      * Get valueOwner
      *
-     * @return string 
+     * @return string
      */
     public function getValueOwner()
     {
