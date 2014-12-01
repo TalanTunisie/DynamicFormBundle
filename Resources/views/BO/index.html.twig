@@ -20,7 +20,7 @@
                     {{ form_widget(formView.name)}}
                 </div>
             </div>
-            {% if formView.valueOwnerAlias %}
+            {% if formView.valueOwnerAlias is defined %}
             <div class="form-group container">
                 {{ form_label(formView.valueOwnerAlias) }}
                 <div class="col-md-8">
