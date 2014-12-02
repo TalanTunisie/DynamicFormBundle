@@ -1,5 +1,6 @@
 {% extends 'TalanDynamicFormBundle::layout.html.twig' %}
-{% block body %}
+{% block talan_dynamic_form_content %}
+<div ng-controller="FormController" ng-app="app">
     {% render(controller('TalanDynamicFormBundle:BO:view')) %}
     {% if form.id %}<input type="hidden" ng-model="formId" ng-init="formId = {{form.id}}">{% endif %}
     {{ form_start(formView, {'class': 'form-horizontal'}) }}
@@ -45,14 +46,6 @@
                         <h3 class="panel-title">{{ 'dynamicForm.bo.builder' | trans }}</h3>
                     </div>
                     <div fb-builder="default"></div>
-{#                     <div class="panel-footer">#}
-{#                         <div class="checkbox">#}
-{#                             <label><input type="checkbox" ng-model="isShowScope" />#}
-{#                                 Show scope#}
-{#                             </label>#}
-{#                         </div>#}
-{#                         {% verbatim %}<pre ng-show="isShowScope">{{form}}</pre>{% endverbatim %}#}
-{#                     </div>#}
                 </div>
             </div>
 
@@ -86,15 +79,10 @@
                 </div>
             </div>
         </form>
-{#         <div class="checkbox">#}
-{#             <label><input type="checkbox" ng-model="isShowScope" ng-init="isShowScope=true" />#}
-{#                 Show scope#}
-{#             </label>#}
-{#         </div>#}
-{#         {% verbatim %}<pre ng-show="isShowScope">{{input}}</pre>{% endverbatim %}#}
     </div>
 
     <div class="row">
         <div class="col-md-12 footer"></div>
     </div>
-{% endblock body %}
+</div>
+{% endblock %}
