@@ -54,7 +54,7 @@ class FormJsonParser
         return $fields;
     }
 
-    public function getJsonFromFields($fields, $valueOwner)
+    public function getJsonFromFields($fields, $valueOwner=null)
     {
         $jsonArray = array();
         foreach ($fields as $field) {

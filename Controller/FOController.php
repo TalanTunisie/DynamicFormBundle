@@ -55,11 +55,9 @@ class FOController extends Controller
 
     public function getFieldsAction(Form $form)
     {
-        if ($form->getValueOwnerAlias() != null) {
-            $valueOwner = $this->get('talan_dynamic_form.value_owner_provider_chain')
+        $valueOwner = $form->getValueOwnerAlias() != null ? $this->get('talan_dynamic_form.value_owner_provider_chain')
             ->getValueOwnerProvider($form->getValueOwnerAlias())
-            ->getValueOwner($form);
-        }
+            ->getValueOwner($form) : null;
 
         $jsonFields = $this->get('talan_dynamic_form.json_parser')
             ->getJsonFromFields($form->getFields(), $valueOwner);
