@@ -19,10 +19,10 @@ dynamicForm:
     message:
       success: Form saved successfully
       remove: Form with id = %id% is removed successfully
-      error:   Error occured while saving
+      error: Error occurred while saving
       
   fo:
     message:
       success: Form submitted successfully
-      error:   Error occured while submitting the form
+      error:   Error occurred while submitting the form
       
