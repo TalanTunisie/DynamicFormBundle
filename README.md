@@ -62,12 +62,14 @@ This will create 8 tables prefixed with "*talan_*" in your database schema:
 ### Import TalanDynamicFormBundle routing files
 TalanDynamicFormBundle comes with default controllers and views that uses the developed services to offer the Back and Front Office functionnalities.
 To activate the required pages you simply need to import the bundle's routing file:
-```
+
+``` yml
 # app/config/routing.yml
 talan_dynamic_form:
     resource: "@TalanDynamicFormBundle/Resources/config/routing.yml"
     prefix:   /
 ```    
+
 You may of course add a prefix of your choice.
 
 If you like to add specific behaviors to the controllers or change the displayed pages, 
