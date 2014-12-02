@@ -110,7 +110,9 @@ By implementing this inteface and injecting the service with the required tag,
 the developer should be able to specify how the submitted values and the user could be linked to each other.
 
 TalanDynamicFormBundle comes with 2 pre-implemented services of the *ValueOwnerProviderInterface*. 
-They are *SessionValueProvider* and *UserValueProvider*. Here is the *SessionValueProvider* Class:
+They are *SessionValueProvider* and *UserValueProvider*. 
+
+Here is the *SessionValueProvider* Class:
 ``` php
 namespace Talan\Bundle\DynamicFormBundle\Service\Impl;
 
