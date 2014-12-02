@@ -83,7 +83,8 @@ To override the layout template located at Resources/views/layout.html.twig in t
 you would place your new layout template at app/Resources/TalanDynamicFormBundle/views/layout.html.twig
 
 The following Twig template file is an example of a layout file that might be used to override the one provided by the bundle.
-```
+
+``` html+jinja
 {% extends 'AcmeDemoBundle::layout.html.twig' %}
 
 {% block title %}Acme Demo Application{% endblock %}
@@ -92,6 +93,7 @@ The following Twig template file is an example of a layout file that might be us
     {% block talan_dynamic_form_content %}{% endblock %}
 {% endblock %}
 ```
+
 The main thing to note in this template is the block named talan_dynamic_form_content. 
 This is the block where the content from each of the different bundle's actions will be displayed, 
 so you must make sure to include this block in the layout file you will use to override the default one.
