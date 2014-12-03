@@ -41,6 +41,6 @@ class FormJsonParserTest extends BaseTestCase
         $this->assertTrue($inputTextField->getIsRequired() == true);
         $this->assertTrue($inputTextField->getIndex() == 0);
         $this->assertTrue($inputTextField->getValidation() == "/.*/");
-        $this->assertTrue($inputTextField->getOptions() == []);
+        $this->assertTrue($inputTextField->getOptions() == array());
     }
 }
