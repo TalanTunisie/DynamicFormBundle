@@ -35,6 +35,26 @@ class Field extends AbstractEntity
     private $placeholder;
 
     /**
+     * @var integer
+     */
+    private $index;
+
+    /**
+     * @var string
+     */
+    private $validation;
+
+    /**
+     * @var array
+     */
+    private $options;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $values;
+
+    /**
      * @var \Talan\Bundle\DynamicFormBundle\Entity\FieldType
      */
     private $fieldType;
@@ -44,11 +64,18 @@ class Field extends AbstractEntity
      */
     private $form;
 
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->values = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
      *
-     * @return integer
+     * @return integer 
      */
     public function getId()
     {
@@ -71,7 +98,7 @@ class Field extends AbstractEntity
     /**
      * Get label
      *
-     * @return string
+     * @return string 
      */
     public function getLabel()
     {
@@ -94,7 +121,7 @@ class Field extends AbstractEntity
     /**
      * Get description
      *
-     * @return string
+     * @return string 
      */
     public function getDescription()
     {
@@ -117,7 +144,7 @@ class Field extends AbstractEntity
     /**
      * Get isRequired
      *
-     * @return boolean
+     * @return boolean 
      */
     public function getIsRequired()
     {
@@ -140,96 +167,12 @@ class Field extends AbstractEntity
     /**
      * Get placeholder
      *
-     * @return string
+     * @return string 
      */
     public function getPlaceholder()
     {
         return $this->placeholder;
     }
-
-    /**
-     * Set fieldType
-     *
-     * @param \Talan\Bundle\DynamicFormBundle\Entity\FieldType $fieldType
-     * @return Field
-     */
-    public function setFieldType(\Talan\Bundle\DynamicFormBundle\Entity\FieldType $fieldType = null)
-    {
-        $this->fieldType = $fieldType;
-
-        return $this;
-    }
-
-    /**
-     * Get fieldType
-     *
-     * @return \Talan\Bundle\DynamicFormBundle\Entity\FieldType
-     */
-    public function getFieldType()
-    {
-        return $this->fieldType;
-    }
-
-    /**
-     * Set form
-     *
-     * @param \Talan\Bundle\DynamicFormBundle\Entity\Form $form
-     * @return Field
-     */
-    public function setForm(\Talan\Bundle\DynamicFormBundle\Entity\Form $form = null)
-    {
-        $this->form = $form;
-
-        return $this;
-    }
-
-    /**
-     * Get form
-     *
-     * @return \Talan\Bundle\DynamicFormBundle\Entity\Form
-     */
-    public function getForm()
-    {
-        return $this->form;
-    }
-    /**
-     * @var string
-     */
-    private $options;
-
-
-    /**
-     * Set options
-     *
-     * @param string $options
-     * @return Field
-     */
-    public function setOptions($options)
-    {
-        $this->options = $options;
-
-        return $this;
-    }
-
-    /**
-     * Get options
-     *
-     * @return string
-     */
-    public function getOptions()
-    {
-        return $this->options;
-    }
-    /**
-     * @var integer
-     */
-    private $index;
-
-    /**
-     * @var string
-     */
-    private $validation;
-
 
     /**
      * Set index
@@ -247,7 +190,7 @@ class Field extends AbstractEntity
     /**
      * Get index
      *
-     * @return integer
+     * @return integer 
      */
     public function getIndex()
     {
@@ -270,7 +213,7 @@ class Field extends AbstractEntity
     /**
      * Get validation
      *
-     * @return string
+     * @return string 
      */
     public function getValidation()
     {
@@ -278,24 +221,26 @@ class Field extends AbstractEntity
     }
 
     /**
-     * Use in comparison in_array
+     * Set options
      *
-     * @return number
+     * @param array $options
+     * @return Field
      */
-    function __toString() {
-        return $this->id;
+    public function setOptions($options)
+    {
+        $this->options = $options;
+
+        return $this;
     }
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $values;
 
     /**
-     * Constructor
+     * Get options
+     *
+     * @return array 
      */
-    public function __construct()
+    public function getOptions()
     {
-        $this->values = new \Doctrine\Common\Collections\ArrayCollection();
+        return $this->options;
     }
 
     /**
@@ -324,10 +269,56 @@ class Field extends AbstractEntity
     /**
      * Get values
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return \Doctrine\Common\Collections\Collection 
      */
     public function getValues()
     {
         return $this->values;
+    }
+
+    /**
+     * Set fieldType
+     *
+     * @param \Talan\Bundle\DynamicFormBundle\Entity\FieldType $fieldType
+     * @return Field
+     */
+    public function setFieldType(\Talan\Bundle\DynamicFormBundle\Entity\FieldType $fieldType = null)
+    {
+        $this->fieldType = $fieldType;
+
+        return $this;
+    }
+
+    /**
+     * Get fieldType
+     *
+     * @return \Talan\Bundle\DynamicFormBundle\Entity\FieldType 
+     */
+    public function getFieldType()
+    {
+        return $this->fieldType;
+    }
+
+    /**
+     * Set form
+     *
+     * @param \Talan\Bundle\DynamicFormBundle\Entity\Form $form
+     * @return Field
+     */
+    public function setForm(\Talan\Bundle\DynamicFormBundle\Entity\Form $form = null)
+    {
+        $this->form = $form;
+
+        return $this;
+    }
+
+    /**
+     * Get form
+     *
+     * @return \Talan\Bundle\DynamicFormBundle\Entity\Form 
+     */
+    public function getForm()
+    {
+        return $this->form;
     }
 }

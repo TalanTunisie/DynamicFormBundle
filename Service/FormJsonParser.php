@@ -30,6 +30,11 @@ class FormJsonParser
     {
         $jsonArray = json_decode($json);
         $fields = array();
+        $fieldTypes = $this->em->getRepository('TalanDynamicFormBundle:FieldType')->findAll();
+        foreach($fieldTypes as $fieldType)
+        {
+            $fieldTypes[$fieldType->getName()] = $fieldType;
+        }
         foreach ($jsonArray as $jsonField) {
             $field = $form->getId() && isset($jsonField->id) ?
                 $this->em->getRepository('TalanDynamicFormBundle:Field')->find($jsonField->id) : null; // Modify or add a new field
@@ -46,8 +51,7 @@ class FormJsonParser
             }
             $field->setIndex($jsonField->index);
             $field->setValidation($jsonField->validation);
-            $fieldType = $this->em->getRepository('TalanDynamicFormBundle:FieldType')->findOneByName($jsonField->component);
-            $field->setFieldType($fieldType);
+            $field->setFieldType($fieldTypes[$jsonField->component]);
 
             $fields[] = $field;
         }
