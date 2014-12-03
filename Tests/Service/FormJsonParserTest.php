@@ -9,33 +9,9 @@ use Talan\Bundle\DynamicFormBundle\Entity\FieldType;
 class FormJsonParserTest extends \PHPUnit_Framework_TestCase
 {
 
-    /**
-     * @var FormJsonParser
-     */
-    private $em;
-
-    public function __construct()
-    {
-        $fieldTypeRepository = $this->getMockBuilder('\Doctrine\ORM\EntityRepository')
-            ->disableOriginalConstructor()
-            ->getMock();
-        $fieldTypeRepository->expects($this->once())
-            ->method('findAll')
-            ->will($this->returnValue($this->getFieldTypes()));
-
-        $entityManager = $this->getMockBuilder('\Doctrine\ORM\EntityManager')
-            ->disableOriginalConstructor()
-            ->getMock();
-        $entityManager->expects($this->once())
-            ->method('getRepository')
-            ->will($this->returnValue($fieldTypeRepository));
-
-        $this->em = $entityManager;
-    }
-
     public function testGetFieldsFromJson()
     {
-        $service = new FormJsonParser($this->em);
+        $service = new FormJsonParser($this->getEntityManager());
 
         $jsonInput = '[{"id":"textbox","component":"textInput","editable":false,"index":0,"label":"Name","description":"Your name","placeholder":"Your name","options":[],"required":true,"validation":"/.*/"},{"component":"textArea","editable":true,"index":1,"label":"Text Area","description":"description","placeholder":"placeholder","options":[],"required":false,"validation":"/.*/"},{"id":"checkbox","component":"checkbox","editable":true,"index":2,"label":"Pets","description":"Do you have any pets?","placeholder":"placeholder","options":["Dog","Cat"],"required":false,"validation":"/.*/"},{"component":"checkbox","editable":true,"index":3,"label":"Checkbox","description":"description","placeholder":"placeholder","options":["value one","value two"],"required":false,"validation":"/.*/"},{"component":"select","editable":true,"index":4,"label":"Select","description":"description","placeholder":"placeholder","options":["value one","value two"],"required":false,"validation":"/.*/"}]';
 
@@ -51,6 +27,25 @@ class FormJsonParserTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($inputTextField->getIndex() == 0);
         $this->assertTrue($inputTextField->getValidation() == "/.*/");
         $this->assertTrue($inputTextField->getOptions() == array());
+    }
+
+    private function getEntityManager()
+    {
+        $fieldTypeRepository = $this->getMockBuilder('\Doctrine\ORM\EntityRepository')
+            ->disableOriginalConstructor()
+            ->getMock();
+        $fieldTypeRepository->expects($this->once())
+            ->method('findAll')
+            ->will($this->returnValue($this->getFieldTypes()));
+
+        $entityManager = $this->getMockBuilder('\Doctrine\ORM\EntityManager')
+            ->disableOriginalConstructor()
+            ->getMock();
+        $entityManager->expects($this->once())
+            ->method('getRepository')
+            ->will($this->returnValue($fieldTypeRepository));
+
+        return $entityManager;
     }
 
     private function getFieldTypes()
