@@ -8,12 +8,13 @@ use Doctrine\ORM\EntityManager;
 use Symfony\Component\Serializer\Encoder\XmlEncoder;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
+use Doctrine\Common\Persistence\ObjectManager;
 
 class FormJsonParser
 {
     protected $em;
 
-    function __construct(EntityManager $em)
+    function __construct(ObjectManager $em)
     {
         $this->em = $em;
     }
