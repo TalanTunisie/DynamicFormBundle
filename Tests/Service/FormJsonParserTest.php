@@ -5,6 +5,7 @@ use Talan\Bundle\DynamicFormBundle\Service\FormJsonParser;
 use Talan\Bundle\DynamicFormBundle\Entity\Form;
 use Talan\Bundle\DynamicFormBundle\Entity\Field;
 use Talan\Bundle\DynamicFormBundle\Entity\FieldType;
+use Doctrine\ORM\EntityRepository;
 
 class FormJsonParserTest extends \PHPUnit_Framework_TestCase
 {

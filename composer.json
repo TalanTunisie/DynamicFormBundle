@@ -16,6 +16,9 @@
 		"doctrine/common" : ">=2.1,<2.4.x-dev",
 		"doctrine/doctrine-fixtures-bundle" : ">=2.1"
 	},
+	"require-dev" : {
+		"mockery/mockery" : "~0.9.1"
+	},
 	"target-dir" : "Talan/Bundle/DynamicFormBundle",
 	"autoload" : {
 		"psr-0" : {
