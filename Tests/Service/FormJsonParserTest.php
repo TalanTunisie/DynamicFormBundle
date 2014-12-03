@@ -4,9 +4,9 @@ namespace Talan\Bundle\DynamicFormBundle\Tests\Service;
 use Talan\Bundle\DynamicFormBundle\Service\FormJsonParser;
 use Talan\Bundle\DynamicFormBundle\Entity\Form;
 use Talan\Bundle\DynamicFormBundle\Entity\Field;
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use Talan\Bundle\DynamicFormBundle\Entity\FieldType;
 
-class FormJsonParserTest extends KernelTestCase
+class FormJsonParserTest extends \PHPUnit_Framework_TestCase
 {
 
     /**
@@ -16,17 +16,22 @@ class FormJsonParserTest extends KernelTestCase
 
     public function __construct()
     {
-        parent::__construct();
-        //start the symfony kernel
-        $kernel = static::createKernel();
-        $kernel->boot();
+        $fieldTypeRepository = $this->getMockBuilder('\Doctrine\ORM\EntityRepository')
+            ->disableOriginalConstructor()
+            ->getMock();
+        $fieldTypeRepository->expects($this->once())
+            ->method('findAll')
+            ->will($this->returnValue($this->getFieldTypes()));
 
-        $this->service = $kernel->getContainer()->get('talan_dynamic_form.json_parser');
-    }
+        $entityManager = $this->getMockBuilder('\Doctrine\ORM\EntityManager')
+            ->disableOriginalConstructor()
+            ->getMock();
 
-    public function testServiceInstance()
-    {
-        $this->assertTrue($this->service instanceof FormJsonParser);
+        $entityManager->expects($this->once())
+            ->method('getRepository')
+            ->will($this->returnValue($fieldTypeRepository));
+
+        $this->service = new FormJsonParser($entityManager);
     }
 
     public function testGetFieldsFromJson()
@@ -37,7 +42,6 @@ class FormJsonParserTest extends KernelTestCase
         $fields = $this->service->getFieldsFromJson($jsonInput, $form);
 
         $inputTextField = $fields[0];
-//         $inputTextField = new Field();
         $this->assertTrue($inputTextField->getForm() == $form);
         $this->assertTrue($inputTextField->getFieldType()->getName() == "textInput");
         $this->assertTrue($inputTextField->getDescription() == "Your name");
@@ -46,5 +50,25 @@ class FormJsonParserTest extends KernelTestCase
         $this->assertTrue($inputTextField->getIndex() == 0);
         $this->assertTrue($inputTextField->getValidation() == "/.*/");
         $this->assertTrue($inputTextField->getOptions() == array());
+    }
+
+    private function getFieldTypes()
+    {
+        $fieldTypes = array();
+        $objects = array(
+            array('textInput', 1),
+            array('textArea', 2),
+            array('checkbox', 3),
+            array('radio', 4),
+            array('select', 4)
+        );
+        foreach ($objects as $object) {
+            $newObject = new FieldType();
+            $newObject->setName($object[0]);
+            $newObject->setValueDisc($object[1]);
+            $fieldTypes[] = $newObject;
+        }
+
+        return $fieldTypes;
     }
 }
