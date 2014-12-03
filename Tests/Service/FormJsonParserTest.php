@@ -12,7 +12,7 @@ class FormJsonParserTest extends \PHPUnit_Framework_TestCase
     /**
      * @var FormJsonParser
      */
-    private $service;
+    private $em;
 
     public function __construct()
     {
@@ -26,20 +26,21 @@ class FormJsonParserTest extends \PHPUnit_Framework_TestCase
         $entityManager = $this->getMockBuilder('\Doctrine\ORM\EntityManager')
             ->disableOriginalConstructor()
             ->getMock();
-
         $entityManager->expects($this->once())
             ->method('getRepository')
             ->will($this->returnValue($fieldTypeRepository));
 
-        $this->service = new FormJsonParser($entityManager);
+        $this->em = $entityManager;
     }
 
     public function testGetFieldsFromJson()
     {
+        $service = new FormJsonParser($this->em);
+
         $jsonInput = '[{"id":"textbox","component":"textInput","editable":false,"index":0,"label":"Name","description":"Your name","placeholder":"Your name","options":[],"required":true,"validation":"/.*/"},{"component":"textArea","editable":true,"index":1,"label":"Text Area","description":"description","placeholder":"placeholder","options":[],"required":false,"validation":"/.*/"},{"id":"checkbox","component":"checkbox","editable":true,"index":2,"label":"Pets","description":"Do you have any pets?","placeholder":"placeholder","options":["Dog","Cat"],"required":false,"validation":"/.*/"},{"component":"checkbox","editable":true,"index":3,"label":"Checkbox","description":"description","placeholder":"placeholder","options":["value one","value two"],"required":false,"validation":"/.*/"},{"component":"select","editable":true,"index":4,"label":"Select","description":"description","placeholder":"placeholder","options":["value one","value two"],"required":false,"validation":"/.*/"}]';
 
         $form = new Form();
-        $fields = $this->service->getFieldsFromJson($jsonInput, $form);
+        $fields = $service->getFieldsFromJson($jsonInput, $form);
 
         $inputTextField = $fields[0];
         $this->assertTrue($inputTextField->getForm() == $form);
