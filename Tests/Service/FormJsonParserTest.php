@@ -34,6 +34,7 @@ class FormJsonParserTest extends \PHPUnit_Framework_TestCase
     {
         $fieldTypeRepository = $this->getMockBuilder('\Doctrine\ORM\EntityRepository')
             ->disableOriginalConstructor()
+            ->setMethods(array('findAll'))
             ->getMock();
         $fieldTypeRepository->expects($this->any())
             ->method('findAll')
