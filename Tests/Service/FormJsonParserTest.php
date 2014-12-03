@@ -1,12 +1,12 @@
 <?php
 namespace Talan\Bundle\DynamicFormBundle\Tests\Service;
 
-use Talan\Bundle\DynamicFormBundle\Tests\BaseTestCase;
 use Talan\Bundle\DynamicFormBundle\Service\FormJsonParser;
 use Talan\Bundle\DynamicFormBundle\Entity\Form;
 use Talan\Bundle\DynamicFormBundle\Entity\Field;
+use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
-class FormJsonParserTest extends BaseTestCase
+class FormJsonParserTest extends KernelTestCase
 {
 
     /**
@@ -17,7 +17,11 @@ class FormJsonParserTest extends BaseTestCase
     public function __construct()
     {
         parent::__construct();
-        $this->service = $this->get('talan_dynamic_form.json_parser');
+        //start the symfony kernel
+        $kernel = static::createKernel();
+        $kernel->boot();
+
+        $this->service = $kernel->getContainer()->get('talan_dynamic_form.json_parser');
     }
 
     public function testServiceInstance()
