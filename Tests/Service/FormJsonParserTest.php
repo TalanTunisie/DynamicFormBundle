@@ -45,7 +45,7 @@ class FormJsonParserTest extends \PHPUnit_Framework_TestCase
             ->method('getRepository')
             ->will($this->returnValue($fieldTypeRepository));
 
-        $entityManager->getRepository('test')->findAll();
+        $entityManager->getRepository()->findAll();
         return $entityManager;
     }
 
