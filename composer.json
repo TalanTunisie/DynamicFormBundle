@@ -17,7 +17,8 @@
 		"doctrine/doctrine-fixtures-bundle" : ">=2.1"
 	},
 	"require-dev" : {
-		"mockery/mockery" : "~0.9.1"
+		"mockery/mockery" : "~0.9.1",
+		"codeclimate/php-test-reporter": "dev-master"
 	},
 	"target-dir" : "Talan/Bundle/DynamicFormBundle",
 	"autoload" : {

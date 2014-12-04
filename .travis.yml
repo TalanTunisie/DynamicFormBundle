@@ -15,7 +15,9 @@ before_script:
     - composer self-update
     - composer install --dev
     
-script: phpunit --coverage-text    
+script: 
+    - phpunit --coverage-text
+    - phpunit --coverage-clover build/logs/clover.xml    
 
 notifications:
   email: aymen.bouchakoua@talan.tn
