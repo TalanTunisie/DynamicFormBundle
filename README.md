@@ -1,7 +1,7 @@
 TalanDynamicFormBundle
 ======================
 [![Build Status](https://travis-ci.org/NightFox7/DynamicFormBundle.svg?branch=master)](https://travis-ci.org/NightFox7/DynamicFormBundle)
-
+[![Code Climate](https://codeclimate.com/github/NightFox7/DynamicFormBundle/badges/gpa.svg)](https://codeclimate.com/github/NightFox7/DynamicFormBundle)
 A Dynamic Form Builder for Symfony2 using [kelp404/angular-form-builder](https://github.com/kelp404/angular-form-builder).
 
 ##Frameworks
