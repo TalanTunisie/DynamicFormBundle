@@ -24,7 +24,7 @@ Add the following lines in your composer.json:
 // composer.json
 {
     "require": {
-        "iphp/filestore-bundle" : "dev-master" 
+        "talan/dynamic-form" : "dev-master"
     }
 }
 ```
@@ -39,7 +39,7 @@ public function registerBundles()
 {
     $bundles = array(
         // ...
-         new Talan\Bundle\AcmeBundle\TalanAcmeBundle(),
+        new Talan\Bundle\DynamicFormBundle\TalanDynamicFormBundle(),
     );
 )
 ```
