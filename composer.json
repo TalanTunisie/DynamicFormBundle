@@ -25,10 +25,5 @@
 		"psr-0" : {
 			"Talan\\Bundle\\DynamicFormBundle" : ""
 		}
-	},
-	"extra" : {
-		"branch-alias" : {
-			"dev-master" : "dev-master"
-		}
 	}
 }
