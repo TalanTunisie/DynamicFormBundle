@@ -32,6 +32,6 @@ class UserValueProvider implements ValueOwnerProviderInterface
             return;
         }
 
-        return $user;
+        return $user->getId();
     }
 }
