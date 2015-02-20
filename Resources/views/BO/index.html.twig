@@ -1,7 +1,7 @@
 {% extends 'TalanDynamicFormBundle::layout.html.twig' %}
 {% block talan_dynamic_form_content %}
 <div ng-controller="FormController" ng-app="app">
-    {% render(controller('TalanDynamicFormBundle:BO:view')) %}
+    {% render(controller('TalanDynamicFormBundle:BO:formList')) %}
     {% if form.id %}<input type="hidden" ng-model="formId" ng-init="formId = {{form.id}}">{% endif %}
     {{ form_start(formView, {'class': 'form-horizontal'}) }}
         <div class="row">
@@ -9,7 +9,7 @@
             <hr/>
             {% if form.id %}
             <div class="form-group container">
-                <label class="col-md-4 control-label required" for="form_type_id">{{ 'dynamicForm.bo.name' | trans }}</label>
+                <label class="col-md-4 control-label required" for="form_type_id">{{ 'dynamicForm.bo.id' | trans }}</label>
                 <div class="col-md-8">
                     <input type="text" required="required" class="form-control" disabled="disabled" value="{{ form.id }}">
                 </div>

@@ -3,10 +3,14 @@ dynamicForm:
     save: Enregistrer
     reset: Réinitialiser
     remove: Supprimer
+    view: Consulter
+    return: Retourner
   bo:
     id: ID
     formInfo: Information du formulaire
     formList: Liste des formulaires
+    ownerList: Liste des propriétaires
+    owner: Propriétaire
     newForm: Créer un nouveau formulaire
     id: id
     name: Nom

@@ -10,12 +10,15 @@ use Symfony\Component\BrowserKit\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Talan\Bundle\DynamicFormBundle\Entity\Field;
 use Talan\Bundle\DynamicFormBundle\Entity\StringValue;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class FOController extends Controller
 {
     public function formAction(Form $form)
     {
+        // Security Checks
         if (!$form) throw new NotFoundHttpException();
+
         $request = $this->getRequest();
         $em = $this->getDoctrine()->getManager();
 
@@ -53,12 +56,13 @@ class FOController extends Controller
         ));
     }
 
-    public function getFieldsAction(Form $form)
+    public function getFieldsAction(Form $form, $valueOwner)
     {
-        $valueOwner = $form->getValueOwnerAlias() != null ? $this->get('talan_dynamic_form.value_owner_provider_chain')
-            ->getValueOwnerProvider($form->getValueOwnerAlias())
-            ->getValueOwner($form) : null;
-
+        if (!$valueOwner) {
+            $valueOwner = $form->getValueOwnerAlias() != null ? $this->get('talan_dynamic_form.value_owner_provider_chain')
+                ->getValueOwnerProvider($form->getValueOwnerAlias())
+                ->getValueOwner($form) : null;
+        }
         $jsonFields = $this->get('talan_dynamic_form.json_parser')
             ->getJsonFromFields($form->getFields(), $valueOwner);
         return new JsonResponse($jsonFields);

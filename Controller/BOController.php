@@ -43,11 +43,20 @@ class BOController extends Controller
         ));
     }
 
-    public function viewAction()
+    public function formListAction()
     {
         $forms = $this->getDoctrine()->getRepository('TalanDynamicFormBundle:Form')->findAll();
-        return $this->render('TalanDynamicFormBundle:BO:view.html.twig', array(
+        return $this->render('TalanDynamicFormBundle:BO:formList.html.twig', array(
             'forms'     => $forms
+        ));
+    }
+
+    public function ownerListAction($formId)
+    {
+        $ownerLists = $this->getDoctrine()->getRepository('TalanDynamicFormBundle:Value')->findOwnersByForm($formId);
+        return $this->render('TalanDynamicFormBundle:BO:ownerList.html.twig', array(
+            'ownerList'     => $ownerLists,
+            'formId'        => $formId
         ));
     }
 

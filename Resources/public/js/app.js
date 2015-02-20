@@ -78,9 +78,9 @@
       $scope.input = [];
       $scope.defaultValue = {};
       $scope.isShowScope = false;
+      $scope.fieldsPath = $location.$$absUrl + '/../../fields/';
       $scope.$watch("formId", function(){
 	      if($scope.formId) {
-		      $scope.fieldsPath = $location.$$absUrl + '/../../fields/';
 		      $http.get($scope.fieldsPath + $scope.formId).
 				  success(function(jsonFields) {
 					  jsonFields.sort(function(a, b) { // sort by index
@@ -94,6 +94,21 @@
 		      );
 	      }
 	  });
+      
+      $scope.setValueOwner = function(valueOwner, formId) {
+    	  $scope.valueOwner = valueOwner;
+    	  $http.get($scope.fieldsPath + formId + '/' + $scope.valueOwner).
+    	  success(function(jsonFields) {
+    		  jsonFields.sort(function(a, b) { // sort by index
+    			  return a.index - b.index;
+    		  });
+    		  for(var field in jsonFields){
+    			  $builder.addFormObject('default', jsonFields[field]);
+    			  $scope.defaultValue[jsonFields[field].id] = jsonFields[field].value;
+    		  }
+    	  }
+    	  );
+      };
       
       return $scope.submit = function() {
         return $validator.validate($scope, 'default').success(function() {

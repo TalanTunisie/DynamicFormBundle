@@ -2,6 +2,7 @@ Talan\Bundle\DynamicFormBundle\Entity\Value:
     type: entity
     table: talan_value
     inheritanceType: JOINED
+    repositoryClass: Talan\Bundle\DynamicFormBundle\Entity\Repository\ValueRepository
     indexes:
         search_index:
             columns: [ value_owner, field_id ]

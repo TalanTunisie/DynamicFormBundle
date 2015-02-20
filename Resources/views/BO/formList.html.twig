@@ -15,14 +15,17 @@
         <tr>
             <td>{{ form.id }}</td>
             <td>{{ form.name }}</td>
-            <td><center>
+            <td>
+                <a href="{{ path('talan_dynamic_form_bo_ownerList', {'formId': form.id}) }}"  target="_self" title="{{ 'dynamicForm.bo.ownerList' }}">
+                    <i class="glyphicon glyphicon-user" style="color: teal; margin-right: 5px;"></i>
+                </a>
                 <a ng-href="{{ path('talan_dynamic_form_bo', {'form': form.id}) }}"  target="_self" title="{{ 'dynamicForm.btn.edit' }}">
-                    <i class="glyphicon glyphicon-pencil" style="color: dodgerblue;"></i>
+                    <i class="glyphicon glyphicon-pencil" style="color: dodgerblue; margin-right: 5px;"></i>
                 </a>
                 <a href="{{ path('talan_dynamic_form_bo_remove', {'form': form.id}) }}"  target="_self" title="{{ 'dynamicForm.btn.delete' }}">
                     <i class="glyphicon glyphicon-remove" style="color: crimson;"></i>
                 </a>
-            </center></td>
+            </td>
         </tr>
         {% endfor %}
         </tbody>

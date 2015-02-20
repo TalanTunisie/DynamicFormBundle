@@ -3,10 +3,14 @@ dynamicForm:
     save: Save
     reset: Reset
     remove: Delete
+    view: View
+    return: return
   bo:
     id: ID
     formInfo: Form-info
     formList: Form-list
+    ownerList: Owner-list
+    owner: Owner
     newForm: Create new Form
     id: id
     name: Name
