@@ -103,11 +103,13 @@
     			  return a.index - b.index;
     		  });
     		  for(var field in jsonFields){
-    			  $builder.addFormObject('default', jsonFields[field]);
+    			  if(!$scope.formId) { // add fields only the first time
+        			  $builder.addFormObject('default', jsonFields[field]);
+    			  }
     			  $scope.defaultValue[jsonFields[field].id] = jsonFields[field].value;
     		  }
-    	  }
-    	  );
+    	  });
+    	  $scope.formId = formId;
       };
       
       return $scope.submit = function() {
