@@ -2,7 +2,7 @@
 {% block talan_dynamic_form_content %}
 <div ng-controller="FormController" ng-app="app">
     <div class="row">
-        <h1>{{ 'dynamicForm.bo.ownerList' | trans }}</h1>
+        <h2>{{ 'dynamicForm.bo.ownerList' | trans }}</h2>
         <hr/>
         <a ng-href="{{ path('talan_dynamic_form_bo', {'form': formId}) }}" target="_self">
             <i class="glyphicon glyphicon-arrow-left"></i>
@@ -31,7 +31,7 @@
         </table>
     </div>
     <div class="row" id="form-view" ng-show="valueOwner">
-        <h2>{{ 'dynamicForm.bo.formPreview' | trans }}</h2>
+        <h2>{{ 'dynamicForm.bo.formOwner' | trans }}: {% verbatim %}{{ valueOwner }}{% endverbatim %}</h2>
         <hr/>
         <form class="form-horizontal">
             <div ng-model="input" fb-form="default" fb-default="defaultValue"></div>

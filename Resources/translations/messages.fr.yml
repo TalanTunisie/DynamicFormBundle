@@ -9,6 +9,7 @@ dynamicForm:
     id: ID
     formInfo: Information du formulaire
     formList: Liste des formulaires
+    formOwner: Forumulaire du propriétaire
     ownerList: Liste des propriétaires
     owner: Propriétaire
     newForm: Créer un nouveau formulaire

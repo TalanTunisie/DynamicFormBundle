@@ -9,6 +9,7 @@ dynamicForm:
     id: ID
     formInfo: Form-info
     formList: Form-list
+    formOwner: Form Owner
     ownerList: Owner-list
     owner: Owner
     newForm: Create new Form
