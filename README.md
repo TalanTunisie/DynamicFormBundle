@@ -6,8 +6,8 @@ TalanDynamicFormBundle
 A Dynamic Form Builder for Symfony2 using [kelp404/angular-form-builder](https://github.com/kelp404/angular-form-builder).
 
 ##Frameworks
-1. [AngularJS 1.2](http://angularjs.org/) 
-2. [jQuery](http://jquery.com/) 
+1. [AngularJS 1.2](http://angularjs.org/)
+2. [jQuery](http://jquery.com/)
 3. [Bootstrap 3](http://getbootstrap.com/)
 4. [Angular-validator](https://github.com/kelp404/angular-validator)
 5. [jQuery Datatable](https://www.datatables.net)
@@ -17,7 +17,7 @@ A Dynamic Form Builder for Symfony2 using [kelp404/angular-form-builder](https:/
 ## Installation
 
 ### Get the bundle
- 
+
 
 Add the following lines in your composer.json:
 ``` json
@@ -69,20 +69,20 @@ To activate the required pages you simply need to import the bundle's routing fi
 talan_dynamic_form:
     resource: "@TalanDynamicFormBundle/Resources/config/routing.yml"
     prefix:   /
-```    
+```
 
 You may of course add a prefix of your choice.
 
-If you like to add specific behaviors to the controllers or change the displayed pages, 
+If you like to add specific behaviors to the controllers or change the displayed pages,
 you simply extends this bundle and make your own implementations of the controllers or the twigs of this bundle.
 
 #### Override the default layout.html.twig
-The layout file of this bundle imports the javascript dependencies from various links. 
-Therefore, we highly recommande that you download the required frameworks mentioned above, 
+The layout file of this bundle imports the javascript dependencies from various links.
+Therefore, we highly recommande that you download the required frameworks mentioned above,
 override the layout file and use the assetics to include the downloaded frameworks.
 
-The easiest way to override a bundle's template is to simply place a new one in your app/Resources folder. 
-To override the layout template located at Resources/views/layout.html.twig in the TalanDynamicFormBundle directory, 
+The easiest way to override a bundle's template is to simply place a new one in your app/Resources folder.
+To override the layout template located at Resources/views/layout.html.twig in the TalanDynamicFormBundle directory,
 you would place your new layout template at app/Resources/TalanDynamicFormBundle/views/layout.html.twig
 
 The following Twig template file is an example of a layout file that might be used to override the one provided by the bundle.
@@ -97,36 +97,34 @@ The following Twig template file is an example of a layout file that might be us
 {% endblock %}
 ```
 
-The main thing to note in this template is the block named talan_dynamic_form_content. 
-This is the block where the content from each of the different bundle's actions will be displayed, 
+The main thing to note in this template is the block named talan_dynamic_form_content.
+This is the block where the content from each of the different bundle's actions will be displayed,
 so you must make sure to include this block in the layout file you will use to override the default one.
 
 ### Add Value Owner Providers
-When a user of the application submit the values of a certain form created by this bundle, these values should be attached some how to that specific user. 
-However, this link between the submitted values and the user depends on the nature of the application. 
-Therefore, it should be up to the developer and the Back-office to specify the way to attach these elements. 
+When a user of the application submit the values of a certain form created by this bundle, these values should be attached somehow to that specific user.
+However, this link between the submitted values and the user depends on the nature of the application.
+Therefore, it should be up to the developer and the Back-office to specify the way to attach these elements.
 
-This bundle provides the above feature by introducing the *ValueOwnerProviderInterface*. 
-By implementing this inteface and injecting the service with the required tag, 
+This bundle provides the above feature by introducing the *ValueOwnerProviderInterface* and its abstract implementation *AbstractOwnerProvider*.
+
+The *ValueOwnerProviderInterface* requires the implementation of 2 methods which are *getValueOwner()* and *getOwnerListTemplate()*. And we added the *AbstractOwnerProvider* Class to provide a default owner template.
+
+So by implementing th interface or extending the abstract class then injecting the service with the required tag,
 the developer should be able to specify how the submitted values and the user could be linked to each other.
 
-TalanDynamicFormBundle comes with 2 pre-implemented services of the *ValueOwnerProviderInterface*. 
-They are *SessionValueProvider* and *UserValueProvider*. 
+TalanDynamicFormBundle comes with 2 pre-implemented services of the *ValueOwnerProviderInterface*.
+They are *SessionValueProvider* and *UserValueProvider*.
 
-Here is the *SessionValueProvider* Class:
+Here is the *UserValueProvider* Class:
 ``` php
-namespace Talan\Bundle\DynamicFormBundle\Service\Impl;
-
-use Talan\Bundle\DynamicFormBundle\Service\ValueOwnerProviderInterface;
-use Symfony\Component\HttpFoundation\Session\Session;
-
-class SessionValueProvider implements ValueOwnerProviderInterface
+class UserValueProvider extends AbstractValueOwnerProvider
 {
-    private $session;
+    private $security;
 
-    public function __construct(Session $session)
+    public function __construct(SecurityContext $security)
     {
-        $this->session = $session;
+        $this->security = $security;
     }
 
     /**
@@ -135,27 +133,42 @@ class SessionValueProvider implements ValueOwnerProviderInterface
      */
     public function getValueOwner()
     {
-        return $this->session->getId();
+        if (!$this->security) {
+            throw new \LogicException(
+              'The SecurityBundle is not registered in your application.');
+        }
+
+        if (null === $token = $this->security->getToken()) {
+            return;
+        }
+
+        if (!is_object($user = $token->getUser())) {
+            return;
+        }
+
+        return $user;
+    }
+
+    public function getOwnerListTemplate()
+    {
+        return 'TalanDynamicFormBundle:OwnerList:connectedUser.html.twig';
     }
 }
 ```
-As you can see the only requiered method to implement is *getValueOwner()* and we injected the *session* variable in order to get the user's session ID.
+As you can see, here we implemented both the *getValueOwner()* and *getOwnerListTemplate()* and we injected the *security* service in order to get the connected user.
 
-To activate the session value provider, you need to add the configuration below to your services.yml.
+To activate the user value provider, you need to add the configuration below to your services.yml.
 
 ``` yml
 # src/Demo/Bundle/DemoBundle/Resources/config/services.yml
-parameters:
-    talan_dynamic_form.session_provider.class: Talan\Bundle\DynamicFormBundle\Service\Impl\SessionValueProvider
-    
 services:
-    talan_dynamic_form.session_value_provider:
-        class: "%talan_dynamic_form.session_provider.class%"
-        arguments: ["@session"]
+    talan_dynamic_form.user_value_provider:
+        class: "Talan\Bundle\DynamicFormBundle\Service\Impl\UserValueProvider"
+        arguments: ["@security.context"]
         tags:
-            - {name: talan_dynamic_form.value_owner_provider, alias: "Session Provider"}
+            - {name: talan_dynamic_form.value_owner_provider, alias: "Connected User Provider"}
 ```
 
-Note that we injected the *@session* as an argument of the *SessionValueProvider* and we tagged the service with **talan_dynamic_form.value_owner_provider** tag. 
-Tagging this service is very important as it allows the bundle to recognize this class as a ValueOwnerProvider. 
+Note that we injected the *@security* as an argument of the *UserValueProvider* and we tagged the service with **talan_dynamic_form.value_owner_provider** tag.
+Tagging this service is very important as it allows the bundle to recognize this class as a ValueOwnerProvider.
 As for the alias, it is the label that will be shown to the back-office to choose from when creating a Form.
