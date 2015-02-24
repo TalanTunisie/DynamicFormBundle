@@ -1,10 +1,10 @@
 <?php
 namespace Talan\Bundle\DynamicFormBundle\Service\Impl;
 
-use Talan\Bundle\DynamicFormBundle\Service\ValueOwnerProviderInterface;
 use Symfony\Component\HttpFoundation\Session\Session;
+use Talan\Bundle\DynamicFormBundle\Service\AbstractValueOwnerProvider;
 
-class SessionValueProvider implements ValueOwnerProviderInterface
+class SessionValueProvider extends AbstractValueOwnerProvider
 {
     private $session;
 

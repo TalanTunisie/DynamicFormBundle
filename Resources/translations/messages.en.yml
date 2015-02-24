@@ -27,6 +27,11 @@ dynamicForm:
       remove: Form with id = %id% is removed successfully
       error: Error occurred while saving
       
+  ownerList:
+      id: ID
+      username: Username
+      email: Email
+      
   fo:
     message:
       success: Form submitted successfully

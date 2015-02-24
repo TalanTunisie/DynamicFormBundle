@@ -8,5 +8,13 @@ namespace Talan\Bundle\DynamicFormBundle\Service;
  */
 interface ValueOwnerProviderInterface
 {
+    /**
+     * Returns the owner of the current entree
+     */
     public function getValueOwner();
+
+    /**
+     * Returns a specific template for this provider
+     */
+    public function getOwnerListTemplate();
 }

@@ -1,11 +1,11 @@
 <?php
 namespace Talan\Bundle\DynamicFormBundle\Service\Impl;
 
-use Talan\Bundle\DynamicFormBundle\Service\ValueOwnerProviderInterface;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Security\Core\SecurityContext;
+use Talan\Bundle\DynamicFormBundle\Service\AbstractValueOwnerProvider;
 
-class UserValueProvider implements ValueOwnerProviderInterface
+class UserValueProvider extends AbstractValueOwnerProvider
 {
     private $security;
 
@@ -32,6 +32,11 @@ class UserValueProvider implements ValueOwnerProviderInterface
             return;
         }
 
-        return $user->getId();
+        return $user;
+    }
+
+    public function getOwnerListTemplate()
+    {
+        return 'TalanDynamicFormBundle:OwnerList:connectedUser.html.twig';
     }
 }
