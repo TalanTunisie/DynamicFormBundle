@@ -2,9 +2,9 @@
 {% block talan_dynamic_form_content %}
 <div ng-controller="FormController" ng-app="app">
     <div class="row">
-        <h2>{{ 'dynamicForm.bo.ownerList' | trans }}</h2>
+        <h2>{{ 'dynamicForm.bo.ownerList' | trans({'%formname%': form.name}) }}</h2>
         <hr/>
-        <a ng-href="{{ path('talan_dynamic_form_bo', {'form': formId}) }}" target="_self">
+        <a ng-href="{{ path('talan_dynamic_form_bo', {'form': form.id}) }}" target="_self">
             <i class="glyphicon glyphicon-arrow-left"></i>
             {{ 'dynamicForm.btn.return' | trans }}
         </a>
@@ -21,7 +21,7 @@
             <tr>
                 <td>{{ valueOwner }}</td>
                 <td>
-                    <a target="_self" title="{{ 'dynamicForm.btn.view' }}" ng-click="setValueOwner('{{ valueOwner }}', '{{formId}}')" href="#">
+                    <a target="_self" title="{{ 'dynamicForm.btn.view' }}" ng-click="setValueOwner('{{ valueOwner }}', '{{form.id}}')" href="#">
                         <i class="glyphicon glyphicon-search" style="color: dodgerblue;"></i>
                     </a>
                 </td>

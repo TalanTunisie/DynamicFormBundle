@@ -51,12 +51,12 @@ class BOController extends Controller
         ));
     }
 
-    public function ownerListAction($formId)
+    public function ownerListAction(Form $form)
     {
-        $ownerLists = $this->getDoctrine()->getRepository('TalanDynamicFormBundle:Value')->findOwnersByForm($formId);
+        $ownerLists = $this->getDoctrine()->getRepository('TalanDynamicFormBundle:Value')->findOwnersByForm($form->getId());
         return $this->render('TalanDynamicFormBundle:BO:ownerList.html.twig', array(
             'ownerList'     => $ownerLists,
-            'formId'        => $formId
+            'form'        => $form
         ));
     }
 

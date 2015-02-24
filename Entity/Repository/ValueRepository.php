@@ -11,8 +11,7 @@ class ValueRepository extends EntityRepository
     {
         $qb = $this->createQueryBuilder('v');
         $qb->select('v.valueOwner')
-            ->join('TalanDynamicFormBundle:Field', 'f')
-            ->where('f.form = :form')
+            ->join('TalanDynamicFormBundle:Field', 'f', Expr\Join::WITH, 'f.form = :form and f.id = v.field')
             ->groupBy('v.valueOwner')
             ->setParameter('form', $formId);
 

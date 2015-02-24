@@ -3,6 +3,7 @@ dynamicForm:
     save: Enregistrer
     reset: Réinitialiser
     remove: Supprimer
+    edit: Edit
     view: Consulter
     return: Retourner
   bo:
@@ -10,7 +11,7 @@ dynamicForm:
     formInfo: Information du formulaire
     formList: Liste des formulaires
     formOwner: Forumulaire du propriétaire
-    ownerList: Liste des propriétaires
+    ownerList: "Liste des propriétaires pour le formulaire: \"%formname%\""
     owner: Propriétaire
     newForm: Créer un nouveau formulaire
     id: id

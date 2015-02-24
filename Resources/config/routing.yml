@@ -5,7 +5,7 @@ talan_dynamic_form_bo_remove:
     path:     /bo/remove/{form}
     defaults: { _controller: "TalanDynamicFormBundle:BO:remove" }
 talan_dynamic_form_bo_ownerList:    
-    path:     /owners/{formId}
+    path:     /owners/{form}
     defaults: { _controller: "TalanDynamicFormBundle:BO:ownerList" }
     
 talan_dynamic_form_fo:

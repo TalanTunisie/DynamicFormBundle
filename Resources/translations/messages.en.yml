@@ -3,6 +3,7 @@ dynamicForm:
     save: Save
     reset: Reset
     remove: Delete
+    edit: Modifier
     view: View
     return: return
   bo:
@@ -10,7 +11,7 @@ dynamicForm:
     formInfo: Form-info
     formList: Form-list
     formOwner: Form Owner
-    ownerList: Owner-list
+    ownerList: "Owner-list for form: \"%formname%\""
     owner: Owner
     newForm: Create new Form
     id: id
