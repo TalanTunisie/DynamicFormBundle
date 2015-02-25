@@ -20,14 +20,14 @@ class FormJsonParserTest extends \PHPUnit_Framework_TestCase
         $fields = $service->getFieldsFromJson($jsonInput, $form);
 
         $inputTextField = $fields[0];
-        $this->assertTrue($inputTextField->getForm() == $form);
-        $this->assertTrue($inputTextField->getFieldType()->getName() == "textInput");
-        $this->assertTrue($inputTextField->getDescription() == "Your name");
-        $this->assertTrue($inputTextField->getPlaceholder() == "Your name");
-        $this->assertTrue($inputTextField->getIsRequired() == true);
-        $this->assertTrue($inputTextField->getIndex() == 0);
-        $this->assertTrue($inputTextField->getValidation() == "/.*/");
-        $this->assertTrue($inputTextField->getOptions() == array());
+        $this->assertEquals($inputTextField->getForm(), $form);
+        $this->assertEquals($inputTextField->getFieldType()->getName(), "textInput");
+        $this->assertEquals($inputTextField->getDescription(), "Your name");
+        $this->assertEquals($inputTextField->getPlaceholder(), "Your name");
+        $this->assertTrue($inputTextField->getIsRequired());
+        $this->assertSame($inputTextField->getIndex(), 0);
+        $this->assertEquals($inputTextField->getValidation(), "/.*/");
+        $this->assertEquals($inputTextField->getOptions(), array());
     }
 
     private function getEntityManager()
