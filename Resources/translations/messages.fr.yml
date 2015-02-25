@@ -4,6 +4,7 @@ dynamicForm:
     reset: Réinitialiser
     remove: Supprimer
     edit: Edit
+    ownerList: Liste des propriétaires
     view: Consulter
     return: Retourner
   bo:
