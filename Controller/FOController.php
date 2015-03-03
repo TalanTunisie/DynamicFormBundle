@@ -28,6 +28,7 @@ class FOController extends Controller
                 $valueOwner = $this->get('talan_dynamic_form.value_owner_provider_chain')
                                     ->getValueOwnerProvider($form->getValueOwnerAlias())
                                     ->getValueOwner();
+                $valueOwner = is_object($valueOwner) ? $valueOwner->getId() : $valueOwner;
             }
             foreach ($fields as $fieldId => $fieldValue) {
                 $field = $em->getRepository('TalanDynamicFormBundle:Field')->find($fieldId);
