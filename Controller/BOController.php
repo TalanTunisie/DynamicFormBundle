@@ -53,14 +53,15 @@ class BOController extends Controller
 
     public function ownerListAction(Form $form)
     {
-        if ($form->getValueOwnerAlias() != null) {
-            $ownerTemplate = $this->get('talan_dynamic_form.value_owner_provider_chain')
-                ->getValueOwnerProvider($form->getValueOwnerAlias())
-                ->getOwnerListTemplate();
+         if ($form->getValueOwnerAlias() != null) {
+        	$valueOwnerProvider = $this->get('talan_dynamic_form.value_owner_provider_chain')
+                ->getValueOwnerProvider($form->getValueOwnerAlias());
+            $ownerTemplate = $valueOwnerProvider->getOwnerListTemplate();
+            $ownerLists = $valueOwnerProvider->getValueOwnerList($form->getId());
         } else {
             $ownerTemplate = 'TalanDynamicFormBundle:OwnerList:none.html.twig';
+	        $ownerLists = $this->getDoctrine()->getRepository('TalanDynamicFormBundle:Value')->findOwnersByForm($formId);
         }
-        $ownerLists = $this->getDoctrine()->getRepository('TalanDynamicFormBundle:Value')->findOwnersByForm($form->getId());
         return $this->render($ownerTemplate, array(
             'ownerList' => $ownerLists,
             'form'      => $form
