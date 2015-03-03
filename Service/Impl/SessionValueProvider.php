@@ -6,11 +6,13 @@ use Talan\Bundle\DynamicFormBundle\Service\AbstractValueOwnerProvider;
 
 class SessionValueProvider extends AbstractValueOwnerProvider
 {
-    private $session;
-
-    public function __construct(Session $session)
+    protected $session;
+    protected $em;
+    
+    public function __construct(EntityManager $em,Session $session)
     {
         $this->session = $session;
+        $this->em = $em;
     }
 
     /**
