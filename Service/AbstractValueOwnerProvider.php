@@ -22,4 +22,12 @@ abstract class AbstractValueOwnerProvider implements ValueOwnerProviderInterface
      * @see \Talan\Bundle\DynamicFormBundle\Service\ValueOwnerProviderInterface::getValueOwner()
      */
     public abstract function getValueOwner();
+    
+    /**
+     * (non-PHPdoc)
+     * @see \Talan\Bundle\DynamicFormBundle\Service\ValueOwnerProviderInterface::getValueOwnerList()
+     */
+ 	public function getValueOwnerList($formId){
+    	return $this->em->getRepository('TalanDynamicFormBundle:Value')->findOwnersByForm($formId);
+    }
 }
