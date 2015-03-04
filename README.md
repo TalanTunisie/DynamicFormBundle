@@ -106,25 +106,27 @@ When a user of the application submit the values of a certain form created by th
 However, this link between the submitted values and the user depends on the nature of the application.
 Therefore, it should be up to the developer and the Back-office to specify the way to attach these elements.
 
-This bundle provides the above feature by introducing the *ValueOwnerProviderInterface* and its abstract implementation *AbstractOwnerProvider*.
+This bundle provides the above feature by introducing the *ValueOwnerProviderInterface* and abstract implementation *AbstractOwnerProvider*. 
 
-The *ValueOwnerProviderInterface* requires the implementation of 2 methods which are *getValueOwner()* and *getOwnerListTemplate()*. And we added the *AbstractOwnerProvider* Class to provide a default owner template.
+The *ValueOwnerProviderInterface* requires the implementation of 3 methods which are *getValueOwner()* , *getOwnerListTemplate()* and *getValueOwnerList($formId)*. And we added the *AbstractOwnerProvider* Class to provide a default owner template.
 
 So by implementing th interface or extending the abstract class then injecting the service with the required tag,
 the developer should be able to specify how the submitted values and the user could be linked to each other.
 
-TalanDynamicFormBundle comes with 2 pre-implemented services of the *ValueOwnerProviderInterface*.
-They are *SessionValueProvider* and *UserValueProvider*.
+TalanDynamicFormBundle comes with 2 pre-implemented classes of the *ValueOwnerProviderInterface*.
+They are *AbstractUserValueProvider* and *SessionValueProvider* which is declared as a service.
 
-Here is the *UserValueProvider* Class:
+Here is the *AbstractUserValueProvider* Class:
 ``` php
-class UserValueProvider extends AbstractValueOwnerProvider
+class AbstractUserValueProvider extends AbstractValueOwnerProvider
 {
-    private $security;
+    protected $security;
+    protected $em;
 
-    public function __construct(SecurityContext $security)
+    public function __construct(EntityManager $em, SecurityContext $security)
     {
         $this->security = $security;
+        $this->em = $em;
     }
 
     /**
@@ -155,7 +157,7 @@ class UserValueProvider extends AbstractValueOwnerProvider
     }
 }
 ```
-As you can see, here we implemented both the *getValueOwner()* and *getOwnerListTemplate()* and we injected the *security* service in order to get the connected user.
+As you can see, here we implemented the *getValueOwner()* and we injected the *entity manager* and the *security* service in order to get the connected user.
 
 To activate the user value provider, you need to add the configuration below to your services.yml.
 
