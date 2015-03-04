@@ -116,16 +116,16 @@ the developer should be able to specify how the submitted values and the user co
 TalanDynamicFormBundle comes with 2 pre-implemented classes of the *ValueOwnerProviderInterface*.
 They are *AbstractUserValueProvider* and *SessionValueProvider* which is declared as a service.
 
-Here is the *AbstractUserValueProvider* Class:
+Here is the *ServiceValueProvider* Class:
 ``` php
-class AbstractUserValueProvider extends AbstractValueOwnerProvider
+class SessionValueProvider extends AbstractValueOwnerProvider
 {
-    protected $security;
+    protected $session;
     protected $em;
-
-    public function __construct(EntityManager $em, SecurityContext $security)
+    
+    public function __construct(EntityManager $em,Session $session)
     {
-        $this->security = $security;
+        $this->session = $session;
         $this->em = $em;
     }
 
@@ -135,43 +135,88 @@ class AbstractUserValueProvider extends AbstractValueOwnerProvider
      */
     public function getValueOwner()
     {
-        if (!$this->security) {
-            throw new \LogicException(
-              'The SecurityBundle is not registered in your application.');
-        }
-
-        if (null === $token = $this->security->getToken()) {
-            return;
-        }
-
-        if (!is_object($user = $token->getUser())) {
-            return;
-        }
-
-        return $user;
-    }
-
-    public function getOwnerListTemplate()
-    {
-        return 'TalanDynamicFormBundle:OwnerList:connectedUser.html.twig';
+        return $this->session->getId();
     }
 }
 ```
-As you can see, here we implemented the *getValueOwner()* and we injected the *entity manager* and the *security* service in order to get the connected user.
+As you can see the only requiered method to implement is *getValueOwner()* and we injected the *session* variable in order to get the user's session ID.
 
-To activate the user value provider, you need to add the configuration below to your services.yml.
+To activate the session value provider, you need to add the configuration below to your services.yml.
 
 ``` yml
 # src/Demo/Bundle/DemoBundle/Resources/config/services.yml
+parameters:
+    talan_dynamic_form.session_provider.class: Talan\Bundle\DynamicFormBundle\Service\Impl\SessionValueProvider
+    
 services:
-    talan_dynamic_form.user_value_provider:
-        class: "Talan\Bundle\DynamicFormBundle\Service\Impl\UserValueProvider"
-        arguments: ["@doctrine.orm.entity_manager","@security.context"]
+    talan_dynamic_form.session_value_provider:
+        class: "%talan_dynamic_form.session_provider.class%"
+        arguments: ["@doctrine.orm.entity_manager","@session"]
         tags:
-            - {name: talan_dynamic_form.value_owner_provider, alias: "Connected User Provider"}
+            - {name: talan_dynamic_form.value_owner_provider, alias: "Session Provider"}
 ```
 
-Note that we injected the *@doctrine.orm.entity_manager* and *@security* as arguments of the *UserValueProvider* and we tagged the service with **talan_dynamic_form.value_owner_provider** tag.
+Note that we injected the *@doctrine.orm.entity_manager* and *@security* as an argument of the *SessionValueProvider* and we tagged the service with **talan_dynamic_form.value_owner_provider** tag.
 Tagging this service is very important as it allows the bundle to recognize this class as a ValueOwnerProvider.
 As for the alias, it is the label that will be shown to the back-office to choose from when creating a Form.
-You should implement the *getValueOwnerList()* and *getOwnerListTemplate()* methods in the *UserValueProvider* service so that you can have your list and your view according to your needs.
+
+Here *AbstractUserValueProvider* Class:
+``` php
+abstract class AbstractUserValueProvider extends AbstractValueOwnerProvider
+{
+	protected $security;
+	protected $em;
+
+	public function __construct(EntityManager $em,SecurityContext $security)
+	{
+		$this->security = $security;
+		$this->em = $em;
+	}
+
+	/**
+	 * (non-PHPdoc)
+	 * @see \Talan\Bundle\DynamicFormBundle\Service\ValueOwnerProviderInterface::getValueOwner()
+	 */
+	public function getValueOwner()
+	{
+		if (!$this->security) {
+			throw new \LogicException('The SecurityBundle is not registered in your application.');
+		}
+
+		if (null === $token = $this->security->getToken()) {
+			return;
+		}
+
+		if (!is_object($user = $token->getUser())) {
+			return;
+		}
+
+		return $user;
+	}
+	
+}
+```
+This class is declared as abstract so that each user can define a personel serivce which implements the two methods *getValueOwnerList()* and *getOwnerListTemplate()* according to his need.
+Here an example of personel service which can be declared in your bundle:
+``` php
+class UserValueProvider extends AbstractUserValueProvider
+{
+	protected $security;
+	protected $em;
+	
+	public function __construct(EntityManager $em, SecurityContext $security)
+	{
+		$this->security = $security;
+		$this->em = $em;
+	}
+	
+	public function getOwnerListTemplate()
+	{
+		return 'TalanUserBundle::connectedUser.html.twig';
+	}
+	
+	public function getValueOwnerList($formId){
+    	return $this->em->getRepository('TalanUserBundle:User')->findUsersByForm($formId);
+    }
+}
+```
