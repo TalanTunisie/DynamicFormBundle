@@ -17,4 +17,9 @@ interface ValueOwnerProviderInterface
      * Returns a specific template for this provider
      */
     public function getOwnerListTemplate();
+    
+    /**
+     * Returns the list of the owners of given Form
+     */
+    public function getValueOwnerList($formId);
 }
