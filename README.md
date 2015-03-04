@@ -166,11 +166,12 @@ To activate the user value provider, you need to add the configuration below to 
 services:
     talan_dynamic_form.user_value_provider:
         class: "Talan\Bundle\DynamicFormBundle\Service\Impl\UserValueProvider"
-        arguments: ["@security.context"]
+        arguments: ["@doctrine.orm.entity_manager","@security.context"]
         tags:
             - {name: talan_dynamic_form.value_owner_provider, alias: "Connected User Provider"}
 ```
 
-Note that we injected the *@security* as an argument of the *UserValueProvider* and we tagged the service with **talan_dynamic_form.value_owner_provider** tag.
+Note that we injected the *@doctrine.orm.entity_manager* and *@security* as arguments of the *UserValueProvider* and we tagged the service with **talan_dynamic_form.value_owner_provider** tag.
 Tagging this service is very important as it allows the bundle to recognize this class as a ValueOwnerProvider.
 As for the alias, it is the label that will be shown to the back-office to choose from when creating a Form.
+You should implement the *getValueOwnerList()* and *getOwnerListTemplate()* methods in the *UserValueProvider* service so that you can have your list and your view according to your needs.
