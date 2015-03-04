@@ -160,7 +160,7 @@ Note that we injected the *@doctrine.orm.entity_manager* and *@security* as an a
 Tagging this service is very important as it allows the bundle to recognize this class as a ValueOwnerProvider.
 As for the alias, it is the label that will be shown to the back-office to choose from when creating a Form.
 
-Here *AbstractUserValueProvider* Class:
+Here is *AbstractUserValueProvider* Class:
 ``` php
 abstract class AbstractUserValueProvider extends AbstractValueOwnerProvider
 {
@@ -219,4 +219,37 @@ class UserValueProvider extends AbstractUserValueProvider
     	return $this->em->getRepository('TalanUserBundle:User')->findUsersByForm($formId);
     }
 }
+```
+To have a clear view of this example, here the *connectedUser.html.twig*:
+```
+{% extends 'TalanDynamicFormBundle:OwnerList:default.html.twig' %}
+{% block talan_dynamic_form_owner_table %}
+<table datatable class="table table-striped table-bordered" id="ownerList">
+    <thead>
+    <tr>
+        <th>{{ 'dynamicForm.owner.id' | trans }}</th>
+        <th>{{ 'dynamicForm.owner.fullName' | trans }}</th>
+        <th>{{ 'dynamicForm.owner.email' | trans }}</th>
+        <th>{{ 'dynamicForm.owner.phone' | trans }}</th>
+        <th>{{ 'dynamicForm.bo.actions' | trans }}</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for owner in ownerList %}
+{# 	    {% set valueOwner = owner.valueOwner is null ? 'NULL' : owner.valueOwner %}#}
+    <tr>
+        <td>{{ owner.id }}</td>
+        <td>{{ owner.firstName }} {{ owner.lastName }}</td>
+        <td>{{ owner.email }}</td>
+        <td>{{ owner.phone }}</td>
+        <td>
+            <a target="_self" title="{{ 'dynamicForm.btn.view' | trans }}" ng-click="setValueOwner('{{ owner.id  }}', '{{form.id}}')" href="#">
+                <i class="glyphicon glyphicon-search" style="color: dodgerblue;"></i>
+            </a>
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock talan_dynamic_form_owner_table %}
 ```
