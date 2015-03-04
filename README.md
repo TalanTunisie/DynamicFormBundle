@@ -236,7 +236,6 @@ To have a clear view of this example, here the *connectedUser.html.twig*:
     </thead>
     <tbody>
     {% for owner in ownerList %}
-{# 	    {% set valueOwner = owner.valueOwner is null ? 'NULL' : owner.valueOwner %}#}
     <tr>
         <td>{{ owner.id }}</td>
         <td>{{ owner.firstName }} {{ owner.lastName }}</td>
