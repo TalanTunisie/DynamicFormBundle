@@ -160,7 +160,7 @@ Note that we injected the *@doctrine.orm.entity_manager* and *@security* as an a
 Tagging this service is very important as it allows the bundle to recognize this class as a ValueOwnerProvider.
 As for the alias, it is the label that will be shown to the back-office to choose from when creating a Form.
 
-Here is *AbstractUserValueProvider* Class:
+Here is the *AbstractUserValueProvider* Class:
 ``` php
 abstract class AbstractUserValueProvider extends AbstractValueOwnerProvider
 {
@@ -196,8 +196,8 @@ abstract class AbstractUserValueProvider extends AbstractValueOwnerProvider
 	
 }
 ```
-This class is declared as abstract so that each user can define a personel serivce which implements the two methods *getValueOwnerList()* and *getOwnerListTemplate()* according to his need.
-Here an example of personel service which can be declared in your bundle:
+This class is declared abstract so that each user can define its own implemtation of the two methods *getValueOwnerList()* and *getOwnerListTemplate()*.
+Here is a sample implementation:
 ``` php
 class UserValueProvider extends AbstractUserValueProvider
 {
@@ -216,11 +216,11 @@ class UserValueProvider extends AbstractUserValueProvider
 	}
 	
 	public function getValueOwnerList($formId){
-    	return $this->em->getRepository('TalanUserBundle:User')->findUsersByForm($formId);
-    }
+		return $this->em->getRepository('TalanUserBundle:User')->findUsersByForm($formId);
+	}
 }
 ```
-To have a clear view of this example, here the *connectedUser.html.twig*:
+And here is the correspondant owner list template *connectedUser.html.twig*:
 ```
 {% extends 'TalanDynamicFormBundle:OwnerList:default.html.twig' %}
 {% block talan_dynamic_form_owner_table %}
