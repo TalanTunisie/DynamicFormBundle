@@ -220,7 +220,7 @@ class UserValueProvider extends AbstractUserValueProvider
 	}
 }
 ```
-And here is the correspondant owner list template *connectedUser.html.twig*:
+And here is the correspondent owner list template *connectedUser.html.twig*:
 ```
 {% extends 'TalanDynamicFormBundle:OwnerList:default.html.twig' %}
 {% block talan_dynamic_form_owner_table %}
